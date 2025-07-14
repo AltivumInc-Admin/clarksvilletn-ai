@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-river-blue: 30 58 95;
+    --color-sunset-copper: 184 115 51;
+    --color-fort-green: 45 80 22;
+    --color-cloud-white: 248 249 250;
+    --color-tech-silver: 233 236 239;
+    --color-historic-stone: 108 117 125;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-cloud-white text-river-blue font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-in {
+    animation: fade-in 0.5s ease-in-out;
+  }
+
+  .glass-effect {
+    @apply backdrop-blur-sm bg-white/80 border border-white/20;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-river-blue to-sunset-copper bg-clip-text text-transparent;
+  }
+
+  .shadow-river {
+    box-shadow: 0 4px 24px rgba(30, 58, 95, 0.12);
+  }
+
+  .shadow-copper {
+    box-shadow: 0 4px 24px rgba(184, 115, 51, 0.12);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

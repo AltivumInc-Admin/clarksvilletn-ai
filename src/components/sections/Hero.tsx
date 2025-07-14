@@ -1,0 +1,125 @@
+import { motion } from 'framer-motion';
+import { Cloud, ArrowRight, Sparkles } from 'lucide-react';
+import Button from '../ui/Button';
+
+export default function Hero() {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-cloud-white via-tech-silver/30 to-cloud-white"></div>
+      
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div
+          className="absolute -top-40 -right-40 w-96 h-96 bg-sunset-copper/10 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            repeatType: 'reverse',
+          }}
+        />
+        <motion.div
+          className="absolute -bottom-40 -left-40 w-96 h-96 bg-river-blue/10 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.3, 0.6, 0.3],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            repeatType: 'reverse',
+          }}
+        />
+      </div>
+
+      <div className="absolute inset-0 bg-[url('/images/clarksville-river.jpg')] bg-cover bg-center opacity-5"></div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="max-w-5xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="mb-8"
+          >
+            <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-river mb-6">
+              <Sparkles className="w-4 h-4 text-sunset-copper" />
+              <span className="text-sm font-medium text-river-blue">
+                Launching "Clarksville on the Cloud" Campaign
+              </span>
+            </div>
+            
+            <h1 className="text-5xl md:text-7xl font-serif font-bold text-river-blue mb-6">
+              Where River City
+              <span className="block gradient-text">Meets the Cloud</span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-historic-stone max-w-3xl mx-auto mb-8 leading-relaxed">
+              Empowering Clarksville businesses with cutting-edge cloud technology and AI innovation. 
+              From Fort Campbell to the Cumberland River, we're building Tennessee's tech future.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          >
+            <Button size="lg" href="/campaign">
+              Join the Cloud Movement
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Button>
+            <Button size="lg" variant="outline" href="/showcase">
+              See Success Stories
+            </Button>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8"
+          >
+            {[
+              { number: '189K+', label: 'Clarksville Residents' },
+              { number: '60+', label: 'Manufacturing Facilities' },
+              { number: '15%', label: 'Tech Sector Growth' },
+            ].map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
+                className="text-center"
+              >
+                <div className="text-3xl md:text-4xl font-bold text-sunset-copper mb-2">
+                  {stat.number}
+                </div>
+                <div className="text-sm text-historic-stone">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+
+      <motion.div
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        animate={{
+          y: [0, 10, 0],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          repeatType: 'reverse',
+        }}
+      >
+        <Cloud className="w-8 h-8 text-river-blue/40" />
+      </motion.div>
+    </section>
+  );
+}
