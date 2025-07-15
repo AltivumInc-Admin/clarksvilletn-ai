@@ -66,8 +66,8 @@ export default function Home() {
                 AI Innovation Hub
               </h3>
               <p className="text-historic-stone mb-4">
-                Building towards Tennessee's first brick-and-mortar AI store, 
-                making advanced technology accessible to all.
+                Creating a central destination where businesses can explore and experience 
+                AI solutions tailored to their industry needs.
               </p>
               <Button variant="ghost" href="/campaign">
                 Learn More
@@ -85,14 +85,14 @@ export default function Home() {
                 <TrendingUp className="w-10 h-10 text-fort-green" />
               </div>
               <h3 className="text-2xl font-serif font-semibold text-river-blue mb-3">
-                Proven Results
+                Measurable Results
               </h3>
               <p className="text-historic-stone mb-4">
                 Join successful companies already leveraging cloud and AI to drive growth 
                 in Tennessee's 5th largest city.
               </p>
-              <Button variant="ghost" href="/showcase">
-                Success Stories
+              <Button variant="ghost" href="/analytics">
+                View Analytics
               </Button>
             </motion.div>
           </div>
