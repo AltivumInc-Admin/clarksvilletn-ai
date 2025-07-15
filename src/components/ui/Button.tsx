@@ -8,10 +8,12 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'sm' | 'md' | 'lg';
   href?: string;
   external?: boolean;
+  target?: string;
+  rel?: string;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = 'primary', size = 'md', href, external, children, ...props }, ref) => {
+  ({ className, variant = 'primary', size = 'md', href, external, target, rel, children, ...props }, ref) => {
     const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2';
     
     const variants = {
@@ -30,12 +32,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const classes = cn(baseStyles, variants[variant], sizes[size], className);
 
     if (href) {
-      if (external) {
+      if (external || href.startsWith('http') || href.startsWith('https')) {
         return (
           <a
             href={href}
-            target="_blank"
-            rel="noopener noreferrer"
+            target={target || "_blank"}
+            rel={rel || "noopener noreferrer"}
             className={classes}
           >
             {children}

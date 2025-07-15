@@ -64,8 +64,8 @@ export default function CTA() {
             viewport={{ once: true }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Button size="lg" variant="primary" href="/contact">
-              Schedule Your Free Consultation
+            <Button size="lg" variant="primary" href="https://forms.gle/SdQrmVQzKguJduGBA" target="_blank" rel="noopener noreferrer">
+              Take Our Brief Survey
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
             <Button size="lg" variant="outline" href="/campaign" className="border-white text-white hover:bg-white hover:text-river-blue">

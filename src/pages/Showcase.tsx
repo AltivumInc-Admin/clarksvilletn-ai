@@ -1,21 +1,8 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Filter, ExternalLink, ChevronRight, Award, Cloud, CheckCircle } from 'lucide-react';
-import { companies } from '../data/companies';
+import { motion } from 'framer-motion';
+import { Sparkles, ChevronRight, Building2, Rocket, TrendingUp } from 'lucide-react';
 import Button from '../components/ui/Button';
 
-const industries = ['All', 'Manufacturing', 'Healthcare', 'Financial Services', 'Logistics', 'Technology', 'Food & Beverage'];
-
 export default function Showcase() {
-  const [selectedIndustry, setSelectedIndustry] = useState('All');
-  const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
-
-  const filteredCompanies = selectedIndustry === 'All' 
-    ? companies 
-    : companies.filter(c => c.industry === selectedIndustry);
-
-  const selectedCompanyData = companies.find(c => c.id === selectedCompany);
-
   return (
     <>
       <section className="pt-32 pb-16 bg-gradient-to-b from-cloud-white to-tech-silver/30">
@@ -30,200 +17,99 @@ export default function Showcase() {
               Success Stories
             </h1>
             <p className="text-xl text-historic-stone max-w-3xl mx-auto">
-              Discover how Clarksville businesses are transforming their operations 
+              Discover how Clarksville businesses will transform their operations 
               with cloud technology and AI innovation.
             </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex flex-wrap gap-2 justify-center mb-12"
-          >
-            {industries.map((industry) => (
-              <button
-                key={industry}
-                onClick={() => setSelectedIndustry(industry)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  selectedIndustry === industry
-                    ? 'bg-sunset-copper text-white shadow-copper'
-                    : 'bg-white text-river-blue hover:bg-river-blue hover:text-white'
-                }`}
-              >
-                {industry}
-              </button>
-            ))}
           </motion.div>
         </div>
       </section>
 
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <AnimatePresence mode="popLayout">
-              {filteredCompanies.map((company, index) => (
-                <motion.div
-                  key={company.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  className="group cursor-pointer"
-                  onClick={() => setSelectedCompany(company.id)}
-                >
-                  <div className="bg-white rounded-xl shadow-river hover:shadow-copper transition-all duration-300 p-8 h-full flex flex-col">
-                    {company.featured && (
-                      <div className="flex items-center space-x-2 mb-4">
-                        <Award className="w-5 h-5 text-sunset-copper" />
-                        <span className="text-sm font-medium text-sunset-copper">Featured Story</span>
-                      </div>
-                    )}
-                    
-                    <h3 className="text-2xl font-serif font-semibold text-river-blue mb-2">
-                      {company.name}
-                    </h3>
-                    
-                    <p className="text-historic-stone mb-4 flex-grow">
-                      {company.description}
-                    </p>
-                    
-                    <div className="space-y-3">
-                      <div className="flex items-center space-x-2 text-sm text-river-blue-light">
-                        <Filter className="w-4 h-4" />
-                        <span>{company.industry}</span>
-                      </div>
-                      
-                      <div className="flex flex-wrap gap-2">
-                        {company.technologies.map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-3 py-1 bg-tech-silver text-xs font-medium text-river-blue rounded-full"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="mt-6 flex items-center justify-between">
-                      <span className="text-sm font-medium text-sunset-copper group-hover:text-sunset-copper-dark transition-colors">
-                        View Case Study
-                      </span>
-                      <ChevronRight className="w-5 h-5 text-sunset-copper group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
-        </div>
-      </section>
-
-      <AnimatePresence>
-        {selectedCompanyData && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-6"
-            onClick={() => setSelectedCompany(null)}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl mx-auto"
           >
-            <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="p-8 md:p-12">
-                <div className="flex items-start justify-between mb-6">
-                  <div>
-                    <h2 className="text-3xl font-serif font-bold text-river-blue mb-2">
-                      {selectedCompanyData.name}
-                    </h2>
-                    <p className="text-historic-stone">{selectedCompanyData.description}</p>
-                  </div>
-                  <button
-                    onClick={() => setSelectedCompany(null)}
-                    className="text-historic-stone hover:text-river-blue transition-colors"
-                  >
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
+            <div className="bg-gradient-to-br from-river-blue/5 to-sunset-copper/5 rounded-2xl p-8 md:p-12 text-center">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-sunset-copper/10 rounded-full mb-6">
+                <Sparkles className="w-10 h-10 text-sunset-copper" />
+              </div>
+              
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-river-blue mb-6">
+                Coming Soon: Your Success Story
+              </h2>
+              
+              <p className="text-lg text-historic-stone mb-8 max-w-2xl mx-auto">
+                As you transition to the cloud and implement AI into your workflows, 
+                we would love to feature your success stories and innovative ideas. 
+                Be among the first Clarksville businesses to showcase how technology 
+                is transforming your operations and driving growth.
+              </p>
 
-                {selectedCompanyData.caseStudy && (
-                  <div className="space-y-8">
-                    <div>
-                      <h3 className="text-xl font-semibold text-river-blue mb-3 flex items-center">
-                        <Cloud className="w-5 h-5 mr-2 text-sunset-copper" />
-                        The Challenge
-                      </h3>
-                      <p className="text-historic-stone">
-                        {selectedCompanyData.caseStudy.challenge}
-                      </p>
-                    </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className="bg-white rounded-xl p-6 shadow-sm"
+                >
+                  <Building2 className="w-8 h-8 text-river-blue mb-4 mx-auto" />
+                  <h3 className="font-semibold text-river-blue mb-2">Share Your Journey</h3>
+                  <p className="text-sm text-historic-stone">
+                    Tell us about your cloud migration and AI adoption experience
+                  </p>
+                </motion.div>
 
-                    <div>
-                      <h3 className="text-xl font-semibold text-river-blue mb-3">
-                        The Solution
-                      </h3>
-                      <p className="text-historic-stone">
-                        {selectedCompanyData.caseStudy.solution}
-                      </p>
-                    </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="bg-white rounded-xl p-6 shadow-sm"
+                >
+                  <Rocket className="w-8 h-8 text-sunset-copper mb-4 mx-auto" />
+                  <h3 className="font-semibold text-river-blue mb-2">Inspire Others</h3>
+                  <p className="text-sm text-historic-stone">
+                    Your innovation can motivate other Clarksville businesses
+                  </p>
+                </motion.div>
 
-                    <div>
-                      <h3 className="text-xl font-semibold text-river-blue mb-3">
-                        The Results
-                      </h3>
-                      <ul className="space-y-2">
-                        {selectedCompanyData.caseStudy.results.map((result, index) => (
-                          <li key={index} className="flex items-start">
-                            <CheckCircle className="w-5 h-5 text-sunset-copper mr-2 flex-shrink-0 mt-0.5" />
-                            <span className="text-historic-stone">{result}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="bg-white rounded-xl p-6 shadow-sm"
+                >
+                  <TrendingUp className="w-8 h-8 text-fort-green mb-4 mx-auto" />
+                  <h3 className="font-semibold text-river-blue mb-2">Gain Recognition</h3>
+                  <p className="text-sm text-historic-stone">
+                    Be featured as a leader in Clarksville's tech transformation
+                  </p>
+                </motion.div>
+              </div>
 
-                    {selectedCompanyData.caseStudy.testimonial && (
-                      <div className="bg-river-blue/5 rounded-xl p-6">
-                        <blockquote className="text-lg text-river-blue italic mb-4">
-                          "{selectedCompanyData.caseStudy.testimonial.text}"
-                        </blockquote>
-                        <div className="text-sm">
-                          <div className="font-semibold text-river-blue">
-                            {selectedCompanyData.caseStudy.testimonial.author}
-                          </div>
-                          <div className="text-historic-stone">
-                            {selectedCompanyData.caseStudy.testimonial.title}
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                <div className="mt-8 flex flex-wrap gap-4">
-                  <Button href="/contact">
-                    Start Your Transformation
+              <div className="space-y-4">
+                <p className="text-historic-stone">
+                  Whether you're a manufacturing company streamlining operations, 
+                  a healthcare provider improving patient care, or a retail business 
+                  enhancing customer experience - we want to hear from you!
+                </p>
+                
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
+                  <Button size="lg" href="https://forms.gle/SdQrmVQzKguJduGBA" target="_blank" rel="noopener noreferrer">
+                    Take Our Brief Survey
+                    <ChevronRight className="ml-2 w-5 h-5" />
                   </Button>
-                  {selectedCompanyData.website && (
-                    <Button variant="outline" href={selectedCompanyData.website} external>
-                      Visit Website
-                      <ExternalLink className="ml-2 w-4 h-4" />
-                    </Button>
-                  )}
+                  <Button size="lg" variant="outline" href="/campaign">
+                    Learn About the Campaign
+                  </Button>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      </section>
 
       <section className="py-24 bg-river-gradient">
         <div className="container mx-auto px-6">
@@ -235,14 +121,15 @@ export default function Showcase() {
             className="text-center max-w-3xl mx-auto"
           >
             <h2 className="text-4xl font-serif font-bold text-white mb-6">
-              Your Success Story Awaits
+              Be Part of Clarksville's Tech Story
             </h2>
             <p className="text-xl text-cloud-white/90 mb-8">
-              Join these pioneering Clarksville businesses in their cloud transformation journey. 
-              Let's showcase how your company is shaping the future of River City.
+              The "Clarksville on the Cloud" campaign will launch soon, showcasing 
+              local businesses leading the way in digital transformation. Join us in 
+              building Tennessee's most innovative city.
             </p>
-            <Button size="lg" variant="primary" href="/campaign">
-              Join the Campaign
+            <Button size="lg" variant="primary" href="https://forms.gle/SdQrmVQzKguJduGBA" target="_blank" rel="noopener noreferrer">
+              Get Started with Our Survey
               <ChevronRight className="ml-2 w-5 h-5" />
             </Button>
           </motion.div>

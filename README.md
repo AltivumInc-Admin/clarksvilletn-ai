@@ -140,4 +140,4 @@ This project represents Clarksville's tech community. Contributions that enhance
 
 ---
 
-Built with ❤️ for Clarksville, Tennessee - Where River City Meets the Cloud
+Built with ❤️ for Clarksville, Tennessee - Clarksville's Gateway to Cloud & AI Innovation

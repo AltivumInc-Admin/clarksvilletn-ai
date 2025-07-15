@@ -52,8 +52,8 @@ export default function Hero() {
             </div>
             
             <h1 className="text-5xl md:text-7xl font-serif font-bold text-river-blue mb-6">
-              Where River City
-              <span className="block gradient-text">Meets the Cloud</span>
+              Clarksville's Gateway to
+              <span className="block gradient-text">Cloud & AI Innovation</span>
             </h1>
             
             <p className="text-xl md:text-2xl text-historic-stone max-w-3xl mx-auto mb-8 leading-relaxed">
@@ -68,8 +68,8 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            <Button size="lg" href="/campaign">
-              Join the Cloud Movement
+            <Button size="lg" href="https://forms.gle/SdQrmVQzKguJduGBA" target="_blank" rel="noopener noreferrer">
+              Take Our Brief Survey
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
             <Button size="lg" variant="outline" href="/showcase">
