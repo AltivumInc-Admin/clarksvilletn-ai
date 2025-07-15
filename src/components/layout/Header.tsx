@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Cloud, ChevronDown } from 'lucide-react';
+import { Menu, X, Cloud } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { NavLink } from '../../types';
 
