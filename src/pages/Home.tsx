@@ -25,7 +25,7 @@ export default function Home() {
             </h2>
             <p className="text-xl text-historic-stone max-w-3xl mx-auto">
               From Fort Campbell's military excellence to the Cumberland River's commerce, 
-              we're writing the next chapter of River City's success story.
+              we're writing the next chapter of Clarksville's success story.
             </p>
           </motion.div>
 
@@ -47,8 +47,8 @@ export default function Home() {
                 Tailored solutions for manufacturing, healthcare, retail, and service industries 
                 that power Clarksville's economy.
               </p>
-              <Button variant="ghost" href="/services">
-                Explore Services
+              <Button variant="ghost" href="https://forms.gle/SdQrmVQzKguJduGBA" target="_blank" rel="noopener noreferrer">
+                Take Our Survey
               </Button>
             </motion.div>
 
@@ -69,8 +69,8 @@ export default function Home() {
                 Building towards Tennessee's first brick-and-mortar AI store, 
                 making advanced technology accessible to all.
               </p>
-              <Button variant="ghost" href="/about">
-                Our Vision
+              <Button variant="ghost" href="/campaign">
+                Learn More
               </Button>
             </motion.div>
 
@@ -99,56 +99,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 bg-warm-beige/20">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="bg-white rounded-2xl shadow-river p-8 md:p-12"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h3 className="text-3xl font-serif font-bold text-river-blue mb-4">
-                  Featured in "Clarksville on the Cloud"
-                </h3>
-                <p className="text-historic-stone mb-6">
-                  Our flagship campaign showcases local businesses embracing cloud technology. 
-                  From LG Chem's battery innovation to local retailers modernizing operations, 
-                  see how Clarksville companies are leading Tennessee's tech transformation.
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <Button href="/campaign">
-                    Join the Campaign
-                  </Button>
-                  <Button variant="outline" href="/showcase">
-                    View Showcase
-                  </Button>
-                </div>
-              </div>
-              <div className="relative">
-                <div className="bg-gradient-to-br from-river-blue/10 to-sunset-copper/10 rounded-2xl p-8">
-                  <div className="space-y-4">
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <div className="text-sm font-semibold text-sunset-copper mb-1">Latest Success</div>
-                      <div className="text-river-blue font-medium">Manufacturing Co. reduces costs by 35%</div>
-                    </div>
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <div className="text-sm font-semibold text-sunset-copper mb-1">Tech Growth</div>
-                      <div className="text-river-blue font-medium">15% increase in tech sector jobs</div>
-                    </div>
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <div className="text-sm font-semibold text-sunset-copper mb-1">Community Impact</div>
-                      <div className="text-river-blue font-medium">$85M+ invested in local economy</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
       <CTA />
     </>

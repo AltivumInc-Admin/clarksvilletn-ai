@@ -33,7 +33,7 @@ const features = [
   {
     icon: Users,
     title: 'Community First',
-    description: 'Connect with local businesses, share success stories, and grow together as River City thrives.',
+    description: 'Connect with local businesses, share success stories, and grow together as Clarksville thrives.',
     color: 'text-sunset-copper',
     bgColor: 'bg-sunset-copper/10',
   },

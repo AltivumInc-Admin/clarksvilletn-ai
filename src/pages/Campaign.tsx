@@ -26,7 +26,7 @@ export default function Campaign() {
             
             <p className="text-xl md:text-2xl text-cloud-white/90 mb-8 leading-relaxed">
               A transformative campaign showcasing how local businesses are leveraging 
-              cloud technology to drive innovation, efficiency, and growth in River City.
+              cloud technology to drive innovation, efficiency, and growth in Clarksville.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

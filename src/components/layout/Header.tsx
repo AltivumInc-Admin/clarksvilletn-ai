@@ -8,9 +8,7 @@ const navLinks: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: 'Clarksville on the Cloud', href: '/campaign' },
   { label: 'Showcase', href: '/showcase' },
-  { label: 'Services', href: '/services' },
   { label: 'Resources', href: '/resources' },
-  { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ];
 

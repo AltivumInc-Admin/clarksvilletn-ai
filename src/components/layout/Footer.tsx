@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Cloud, Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
+import { Cloud, Mail, Phone } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -35,11 +35,6 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/services" className="text-sm text-cloud-white/80 hover:text-sunset-copper transition-colors">
-                  Our Services
-                </Link>
-              </li>
-              <li>
                 <Link to="/resources" className="text-sm text-cloud-white/80 hover:text-sunset-copper transition-colors">
                   Resources
                 </Link>
@@ -60,38 +55,22 @@ export default function Footer() {
                 <Phone className="w-4 h-4 text-sunset-copper" />
                 <span>Coming Soon</span>
               </li>
-              <li className="flex items-start space-x-2 text-sm text-cloud-white/80">
-                <MapPin className="w-4 h-4 text-sunset-copper mt-0.5" />
-                <span>Clarksville, TN<br />River City Tech Hub</span>
-              </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-serif font-semibold mb-4">Clarksville Pride</h4>
+            <h4 className="font-serif font-semibold mb-4">About Clarksville</h4>
             <p className="text-sm text-cloud-white/80 mb-4">
               Home of Fort Campbell and the 101st Airborne Division. 
               Where military excellence meets technological innovation.
             </p>
-            <div className="flex items-center space-x-2 text-sm">
-              <span className="text-cloud-white/60">Part of the</span>
-              <a 
-                href="https://www.clarksvilletn.gov" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-sunset-copper hover:text-sunset-copper-light transition-colors flex items-center space-x-1"
-              >
-                <span>City of Clarksville</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
           </div>
         </div>
 
         <div className="mt-12 pt-8 border-t border-cloud-white/20">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-sm text-cloud-white/60">
-              © {currentYear} ClarksvilleTN.AI. All rights reserved.
+              © {currentYear} Altivum Inc. All rights reserved.
             </p>
             <div className="flex items-center space-x-6">
               <Link to="/privacy" className="text-sm text-cloud-white/60 hover:text-sunset-copper transition-colors">
@@ -108,7 +87,7 @@ export default function Footer() {
       <div className="bg-river-blue-dark py-2">
         <div className="container mx-auto px-6">
           <p className="text-xs text-center text-cloud-white/40">
-            Proudly serving Montgomery County and the Greater Clarksville Area
+            Owned and operated by Altivum<sup>™</sup> Inc., a for-profit benefit corporation incorporated in Tennessee
           </p>
         </div>
       </div>
