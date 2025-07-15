@@ -15,16 +15,20 @@
   }
 
   * {
-    @apply border-border;
+    border-style: solid;
+    border-width: 0;
+    border-color: rgb(229 231 235);
   }
 
   body {
-    @apply bg-cloud-white text-river-blue font-sans;
+    background-color: #f8f9fa;
+    color: #1e3a5f;
+    font-family: theme('fontFamily.sans');
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif;
+    font-family: theme('fontFamily.serif');
   }
 }
 
@@ -38,11 +42,16 @@
   }
 
   .glass-effect {
-    @apply backdrop-blur-sm bg-white/80 border border-white/20;
+    backdrop-filter: blur(4px);
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-river-blue to-sunset-copper bg-clip-text text-transparent;
+    background: linear-gradient(to right, #1e3a5f, #b87333);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
   .shadow-river {
