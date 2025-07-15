@@ -20,7 +20,7 @@ export default function CTA() {
           </h2>
           <p className="text-xl text-cloud-white/90 mb-8 max-w-2xl mx-auto">
             Whether you're a local manufacturer, retailer, or service provider, 
-            we're here to guide your journey to the cloud and beyond.
+            discover the resources and support available for your cloud journey.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-12">

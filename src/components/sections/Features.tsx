@@ -61,8 +61,8 @@ export default function Features() {
             Why Clarksville Businesses Choose the Cloud
           </h2>
           <p className="text-xl text-historic-stone max-w-3xl mx-auto">
-            From manufacturing giants to local startups, discover how we're transforming 
-            Tennessee's fastest-growing city into a tech powerhouse.
+            From manufacturing giants to local startups, discover how Clarksville is 
+            becoming a leader in modern technology across Tennessee.
           </p>
         </motion.div>
 

@@ -25,7 +25,7 @@ export default function Home() {
             </h2>
             <p className="text-xl text-historic-stone max-w-3xl mx-auto">
               From Fort Campbell's military excellence to the Cumberland River's commerce, 
-              we're writing the next chapter of Clarksville's success story.
+              Clarksville is writing the next chapter of its success story.
             </p>
           </motion.div>
 

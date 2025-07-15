@@ -58,7 +58,7 @@ export default function Hero() {
             
             <p className="text-xl md:text-2xl text-historic-stone max-w-3xl mx-auto mb-8 leading-relaxed">
               Empowering Clarksville businesses with cutting-edge cloud technology and AI innovation. 
-              From Fort Campbell to the Cumberland River, we're building Tennessee's tech future.
+              From Fort Campbell to the Cumberland River, Clarksville is building Tennessee's tech future.
             </p>
           </motion.div>
 

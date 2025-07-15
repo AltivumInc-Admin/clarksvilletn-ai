@@ -56,7 +56,7 @@ export default function Campaign() {
             </h2>
             <p className="text-xl text-historic-stone">
               As Tennessee's 5th largest city experiences unprecedented growth, 
-              we're positioning Clarksville as a leader in digital transformation 
+              Clarksville is positioning itself as a leader in digital transformation 
               and technological innovation.
             </p>
           </motion.div>
