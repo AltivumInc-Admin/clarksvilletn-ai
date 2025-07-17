@@ -82,6 +82,22 @@ export default function Analytics() {
               Tennessee's emerging technology hub.
             </p>
           </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="bg-sunset-copper/10 border-2 border-sunset-copper/20 rounded-xl p-6 text-center">
+              <p className="text-lg text-river-blue font-medium">
+                <strong>Note:</strong> These visualizations represent sample analytics demonstrating our vision 
+                for tracking and presenting Clarksville's tech and AI adoption. Our goal is to provide 
+                businesses and public sector organizations with clear insights into the local technology 
+                landscape, enabling data-driven decisions for digital transformation.
+              </p>
+            </div>
+          </motion.div>
         </div>
       </section>
 

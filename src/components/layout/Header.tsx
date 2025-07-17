@@ -6,7 +6,6 @@ import type { NavLink } from '../../types';
 
 const navLinks: NavLink[] = [
   { label: 'Home', href: '/' },
-  { label: 'Clarksville on the Cloud', href: '/campaign' },
   { label: 'Showcase', href: '/showcase' },
   { label: 'Analytics', href: '/analytics' },
   { label: 'Resources', href: '/resources' },

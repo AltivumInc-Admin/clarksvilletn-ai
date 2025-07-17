@@ -96,13 +96,10 @@ export default function Showcase() {
                   enhancing customer experience - we want to hear from you!
                 </p>
                 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8">
+                <div className="flex justify-center mt-8">
                   <Button size="lg" href="https://forms.gle/SdQrmVQzKguJduGBA" target="_blank" rel="noopener noreferrer">
                     Take Our Brief Survey
                     <ChevronRight className="ml-2 w-5 h-5" />
-                  </Button>
-                  <Button size="lg" variant="outline" href="/campaign">
-                    Learn About the Campaign
                   </Button>
                 </div>
               </div>

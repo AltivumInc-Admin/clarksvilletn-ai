@@ -25,11 +25,6 @@ export default function Footer() {
             <h4 className="font-serif font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="/campaign" className="text-sm text-cloud-white/80 hover:text-sunset-copper transition-colors">
-                  Clarksville on the Cloud
-                </Link>
-              </li>
-              <li>
                 <Link to="/showcase" className="text-sm text-cloud-white/80 hover:text-sunset-copper transition-colors">
                   Success Stories
                 </Link>
