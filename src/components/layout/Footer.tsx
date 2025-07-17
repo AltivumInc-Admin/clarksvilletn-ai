@@ -48,7 +48,9 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-2 text-sm text-cloud-white/80">
                 <Phone className="w-4 h-4 text-sunset-copper" />
-                <span>Coming Soon</span>
+                <a href="tel:615-219-9425" className="hover:text-sunset-copper transition-colors">
+                  615-219-9425
+                </a>
               </li>
             </ul>
           </div>

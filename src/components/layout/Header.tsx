@@ -9,7 +9,6 @@ const navLinks: NavLink[] = [
   { label: 'Showcase', href: '/showcase' },
   { label: 'Analytics', href: '/analytics' },
   { label: 'Resources', href: '/resources' },
-  { label: 'Contact', href: '/contact' },
 ];
 
 export default function Header() {
