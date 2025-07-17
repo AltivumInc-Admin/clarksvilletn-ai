@@ -64,7 +64,7 @@ export default function Header() {
                 ClarksvilleTN.AI
               </h1>
               <p className="text-xs text-historic-stone -mt-1">
-                Cloud & AI Innovation Hub
+                Cloud & AI Innovation Hub powered by Altivum
               </p>
             </div>
           </Link>

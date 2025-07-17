@@ -47,8 +47,8 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center space-x-2 text-sm text-cloud-white/80">
                 <Mail className="w-4 h-4 text-sunset-copper" />
-                <a href="mailto:info@clarksvilletn.ai" className="hover:text-sunset-copper transition-colors">
-                  info@clarksvilletn.ai
+                <a href="mailto:info@altivum.ai" className="hover:text-sunset-copper transition-colors">
+                  info@altivum.ai
                 </a>
               </li>
               <li className="flex items-center space-x-2 text-sm text-cloud-white/80">
@@ -73,6 +73,9 @@ export default function Footer() {
               © {currentYear} Altivum Inc. All rights reserved.
             </p>
             <div className="flex items-center space-x-6">
+              <Link to="/legal" className="text-sm text-cloud-white/60 hover:text-sunset-copper transition-colors">
+                Legal Notice
+              </Link>
               <Link to="/privacy" className="text-sm text-cloud-white/60 hover:text-sunset-copper transition-colors">
                 Privacy Policy
               </Link>
