@@ -84,8 +84,8 @@ export default function Hero() {
             className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8"
           >
             {[
-              { number: '189K+', label: 'Clarksville Residents' },
-              { number: '60+', label: 'Manufacturing Facilities' },
+              { number: '180K+', label: 'Clarksville Residents' },
+              { number: '1 in 20', label: 'TN Businesses Using AI' },
               { number: '15%', label: 'Tech Sector Growth' },
             ].map((stat, index) => (
               <motion.div
