@@ -4,7 +4,7 @@ import Button from '../ui/Button';
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center overflow-hidden py-20 md:py-0">
       <div className="absolute inset-0 bg-gradient-to-br from-cloud-white via-tech-silver/30 to-cloud-white"></div>
       
       <div className="absolute inset-0 overflow-hidden">
@@ -36,7 +36,7 @@ export default function Hero() {
 
       <div className="absolute inset-0 bg-[url('/images/clarksville-river.jpg')] bg-cover bg-center opacity-5"></div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="max-w-5xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -44,19 +44,19 @@ export default function Hero() {
             transition={{ duration: 0.8 }}
             className="mb-8"
           >
-            <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-river mb-6">
-              <Sparkles className="w-4 h-4 text-sunset-copper" />
-              <span className="text-sm font-medium text-river-blue">
+            <div className="inline-flex items-center space-x-1.5 md:space-x-2 bg-white/80 backdrop-blur-sm px-3 py-1.5 md:px-4 md:py-2 rounded-full shadow-river mb-4 md:mb-6">
+              <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4 text-sunset-copper" />
+              <span className="text-xs md:text-sm font-medium text-river-blue">
                 Launching "Clarksville on the Cloud" Campaign
               </span>
             </div>
             
-            <h1 className="text-5xl md:text-7xl font-serif font-bold text-river-blue mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-river-blue mb-4 md:mb-6">
               Clarksville's Gateway to
               <span className="block gradient-text">Cloud & AI Innovation</span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-historic-stone max-w-3xl mx-auto mb-8 leading-relaxed">
+            <p className="text-base md:text-xl lg:text-2xl text-historic-stone max-w-3xl mx-auto mb-6 md:mb-8 leading-relaxed">
               Empowering Clarksville businesses with cutting-edge cloud technology and AI innovation. 
               From Fort Campbell to the Cumberland River, Clarksville is building Tennessee's tech future.
             </p>
@@ -81,7 +81,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
-            className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8"
+            className="mt-8 md:mt-16 grid grid-cols-3 gap-4 md:gap-8"
           >
             {[
               { number: '180K+', label: 'Clarksville Residents' },
@@ -95,10 +95,10 @@ export default function Hero() {
                 transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
                 className="text-center"
               >
-                <div className="text-3xl md:text-4xl font-bold text-sunset-copper mb-2">
+                <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-sunset-copper mb-1 md:mb-2">
                   {stat.number}
                 </div>
-                <div className="text-sm text-historic-stone">
+                <div className="text-xs md:text-sm text-historic-stone">
                   {stat.label}
                 </div>
               </motion.div>

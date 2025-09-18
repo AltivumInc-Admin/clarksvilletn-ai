@@ -48,25 +48,25 @@ const features = [
 
 export default function Features() {
   return (
-    <section className="py-24 bg-gradient-to-b from-cloud-white to-tech-silver/30">
-      <div className="container mx-auto px-6">
+    <section className="py-12 md:py-24 bg-gradient-to-b from-cloud-white to-tech-silver/30">
+      <div className="container mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 md:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-river-blue mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-river-blue mb-3 md:mb-4">
             Why Clarksville Businesses Choose the Cloud
           </h2>
-          <p className="text-xl text-historic-stone max-w-3xl mx-auto">
+          <p className="text-sm md:text-lg lg:text-xl text-historic-stone max-w-3xl mx-auto">
             From manufacturing giants to local startups, discover how Clarksville is 
             becoming a leader in modern technology across Tennessee.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={index}
@@ -76,14 +76,14 @@ export default function Features() {
               viewport={{ once: true }}
               className="group"
             >
-              <div className="bg-white rounded-2xl p-8 shadow-river hover:shadow-copper transition-all duration-300 h-full">
-                <div className={`w-16 h-16 ${feature.bgColor} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                  <feature.icon className={`w-8 h-8 ${feature.color}`} />
+              <div className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8 shadow-river hover:shadow-copper transition-all duration-300 h-full">
+                <div className={`w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 ${feature.bgColor} rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-4 lg:mb-6 group-hover:scale-110 transition-transform`}>
+                  <feature.icon className={`w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 ${feature.color}`} />
                 </div>
-                <h3 className="text-2xl font-serif font-semibold text-river-blue mb-3">
+                <h3 className="text-lg md:text-xl lg:text-2xl font-serif font-semibold text-river-blue mb-2 md:mb-3">
                   {feature.title}
                 </h3>
-                <p className="text-historic-stone leading-relaxed">
+                <p className="text-sm md:text-base text-historic-stone leading-relaxed">
                   {feature.description}
                 </p>
               </div>

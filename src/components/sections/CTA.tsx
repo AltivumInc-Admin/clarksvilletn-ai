@@ -4,10 +4,10 @@ import Button from '../ui/Button';
 
 export default function CTA() {
   return (
-    <section className="py-24 bg-river-gradient relative overflow-hidden">
+    <section className="py-12 md:py-24 bg-river-gradient relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/images/cloud-pattern.svg')] opacity-10"></div>
       
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -15,10 +15,10 @@ export default function CTA() {
           viewport={{ once: true }}
           className="max-w-4xl mx-auto text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white mb-3 md:mb-6">
             Ready to Join Clarksville's Cloud Revolution?
           </h2>
-          <p className="text-xl text-cloud-white/90 mb-8 max-w-2xl mx-auto">
+          <p className="text-sm md:text-lg lg:text-xl text-cloud-white/90 mb-6 md:mb-8 max-w-2xl mx-auto">
             Whether you're a local manufacturer, retailer, or service provider, 
             discover the resources and support available for your cloud journey.
           </p>

@@ -11,25 +11,25 @@ export default function Home() {
       <Hero />
       <Features />
       
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6">
+      <section className="py-12 md:py-24 bg-white">
+        <div className="container mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-8 md:mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-river-blue mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-river-blue mb-3 md:mb-4">
               Clarksville's Digital Transformation
             </h2>
-            <p className="text-xl text-historic-stone max-w-3xl mx-auto">
+            <p className="text-sm md:text-lg lg:text-xl text-historic-stone max-w-3xl mx-auto">
               From Fort Campbell's military excellence to the Cumberland River's commerce, 
               Clarksville is writing the next chapter of its success story.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -37,13 +37,13 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center"
             >
-              <div className="bg-sunset-copper/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <Building2 className="w-10 h-10 text-sunset-copper" />
+              <div className="bg-sunset-copper/10 w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-6">
+                <Building2 className="w-7 h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 text-sunset-copper" />
               </div>
-              <h3 className="text-2xl font-serif font-semibold text-river-blue mb-3">
+              <h3 className="text-lg md:text-xl lg:text-2xl font-serif font-semibold text-river-blue mb-2 md:mb-3">
                 Local Business Focus
               </h3>
-              <p className="text-historic-stone mb-4">
+              <p className="text-sm md:text-base text-historic-stone mb-3 md:mb-4">
                 Tailored solutions for manufacturing, healthcare, retail, and service industries 
                 that power Clarksville's economy.
               </p>
@@ -59,13 +59,13 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center"
             >
-              <div className="bg-river-blue/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <Sparkles className="w-10 h-10 text-river-blue" />
+              <div className="bg-river-blue/10 w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-6">
+                <Sparkles className="w-7 h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 text-river-blue" />
               </div>
-              <h3 className="text-2xl font-serif font-semibold text-river-blue mb-3">
+              <h3 className="text-lg md:text-xl lg:text-2xl font-serif font-semibold text-river-blue mb-2 md:mb-3">
                 AI Innovation Hub
               </h3>
-              <p className="text-historic-stone mb-4">
+              <p className="text-sm md:text-base text-historic-stone mb-3 md:mb-4">
                 Creating a central destination where businesses can explore and experience 
                 AI solutions tailored to their industry needs.
               </p>
@@ -81,13 +81,13 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center"
             >
-              <div className="bg-fort-green/10 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <TrendingUp className="w-10 h-10 text-fort-green" />
+              <div className="bg-fort-green/10 w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-6">
+                <TrendingUp className="w-7 h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 text-fort-green" />
               </div>
-              <h3 className="text-2xl font-serif font-semibold text-river-blue mb-3">
+              <h3 className="text-lg md:text-xl lg:text-2xl font-serif font-semibold text-river-blue mb-2 md:mb-3">
                 Measurable Results
               </h3>
-              <p className="text-historic-stone mb-4">
+              <p className="text-sm md:text-base text-historic-stone mb-3 md:mb-4">
                 Join successful companies already leveraging cloud and AI to drive growth 
                 in Tennessee's 5th largest city.
               </p>
