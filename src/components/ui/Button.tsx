@@ -25,8 +25,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const sizes = {
       sm: 'px-3 py-1.5 text-sm',
-      md: 'px-5 py-2.5 text-base',
-      lg: 'px-8 py-3.5 text-lg',
+      md: 'px-4 md:px-5 py-2 md:py-2.5 text-sm md:text-base',
+      lg: 'px-5 md:px-8 py-2.5 md:py-3.5 text-base md:text-lg',
     };
 
     const classes = cn(baseStyles, variants[variant], sizes[size], className);
