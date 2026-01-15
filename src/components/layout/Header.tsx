@@ -33,7 +33,7 @@ export default function Header() {
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-river'
+          ? 'bg-white/95 backdrop-blur-md shadow-subtle border-b border-fine border-fine-river'
           : 'bg-transparent'
       }`}
     >
@@ -72,13 +72,20 @@ export default function Header() {
               <Link
                 key={link.href}
                 to={link.href}
-                className={`text-sm font-medium transition-colors hover:text-sunset-copper ${
+                className={`text-sm font-medium transition-all duration-200 relative ${
                   location.pathname === link.href
                     ? 'text-sunset-copper'
-                    : 'text-river-blue'
+                    : 'text-river-blue hover:text-sunset-copper'
                 }`}
               >
                 {link.label}
+                {location.pathname === link.href && (
+                  <motion.div
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-sunset-copper"
+                    layoutId="activeTab"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
               </Link>
             ))}
           </div>
@@ -103,7 +110,7 @@ export default function Header() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-white/95 backdrop-blur-md border-t border-tech-silver"
+            className="lg:hidden bg-white/95 backdrop-blur-md border-t border-fine border-fine-river"
           >
             <div className="container mx-auto px-6 py-4">
               {navLinks.map((link, index) => (
@@ -115,7 +122,7 @@ export default function Header() {
                 >
                   <Link
                     to={link.href}
-                    className={`block py-3 text-sm font-medium transition-colors hover:text-sunset-copper ${
+                    className={`block py-3 text-sm font-medium transition-all duration-200 border-b border-fine border-fine-river last:border-b-0 hover:text-sunset-copper ${
                       location.pathname === link.href
                         ? 'text-sunset-copper'
                         : 'text-river-blue'

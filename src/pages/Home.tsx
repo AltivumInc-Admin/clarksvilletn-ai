@@ -11,7 +11,7 @@ export default function Home() {
       <Hero />
       <Features />
       
-      <section className="py-12 md:py-24 bg-white">
+      <section className="py-12 md:py-24 bg-white border-t border-fine border-river-blue/10">
         <div className="container mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -37,7 +37,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center"
             >
-              <div className="bg-sunset-copper/10 w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-6">
+              <div className="bg-sunset-copper/10 w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-6 border border-fine border-sunset-copper/20">
                 <Building2 className="w-7 h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 text-sunset-copper" />
               </div>
               <h3 className="text-lg md:text-xl lg:text-2xl font-serif font-semibold text-river-blue mb-2 md:mb-3">
@@ -59,7 +59,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center"
             >
-              <div className="bg-river-blue/10 w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-6">
+              <div className="bg-river-blue/10 w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-6 border border-fine border-river-blue/20">
                 <Sparkles className="w-7 h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 text-river-blue" />
               </div>
               <h3 className="text-lg md:text-xl lg:text-2xl font-serif font-semibold text-river-blue mb-2 md:mb-3">
@@ -81,7 +81,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center"
             >
-              <div className="bg-fort-green/10 w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-6">
+              <div className="bg-fort-green/10 w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-6 border border-fine border-fort-green/20">
                 <TrendingUp className="w-7 h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 text-fort-green" />
               </div>
               <h3 className="text-lg md:text-xl lg:text-2xl font-serif font-semibold text-river-blue mb-2 md:mb-3">

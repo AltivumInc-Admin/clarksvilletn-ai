@@ -76,8 +76,8 @@ export default function Features() {
               viewport={{ once: true }}
               className="group"
             >
-              <div className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8 shadow-river hover:shadow-copper transition-all duration-300 h-full">
-                <div className={`w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 ${feature.bgColor} rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-4 lg:mb-6 group-hover:scale-110 transition-transform`}>
+              <div className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8 shadow-subtle border border-fine border-river-blue/10 hover:border-river-blue/20 hover:shadow-river transition-all duration-300 h-full">
+                <div className={`w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 ${feature.bgColor} rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-4 lg:mb-6 group-hover:scale-110 transition-transform border border-fine border-river-blue/5`}>
                   <feature.icon className={`w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 ${feature.color}`} />
                 </div>
                 <h3 className="text-lg md:text-xl lg:text-2xl font-serif font-semibold text-river-blue mb-2 md:mb-3">

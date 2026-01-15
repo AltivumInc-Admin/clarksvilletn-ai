@@ -14,7 +14,7 @@ export default function ShowcaseCard({ company, index }: ShowcaseCardProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+      className="bg-white rounded-2xl shadow-subtle border border-fine border-river-blue/10 overflow-hidden hover:shadow-river hover:border-river-blue/20 transition-all duration-300"
     >
       {/* Header with gradient accent */}
       <div className="bg-gradient-to-r from-river-blue to-river-blue-light p-8">
@@ -28,7 +28,7 @@ export default function ShowcaseCard({ company, index }: ShowcaseCardProps) {
             </p>
           </div>
           {company.featured && (
-            <div className="bg-sunset-copper/20 backdrop-blur-sm rounded-full p-2">
+            <div className="bg-sunset-copper/20 backdrop-blur-sm rounded-full p-2 border border-fine border-sunset-copper/30">
               <Sparkles className="w-6 h-6 text-sunset-copper" />
             </div>
           )}
@@ -50,7 +50,7 @@ export default function ShowcaseCard({ company, index }: ShowcaseCardProps) {
             {company.technologies.map((tech) => (
               <span
                 key={tech}
-                className="inline-flex items-center px-3 py-1 bg-tech-silver/50 text-river-blue-dark rounded-full text-sm font-medium"
+                className="inline-flex items-center px-3 py-1 bg-tech-silver/50 text-river-blue-dark rounded-full text-sm font-medium border border-fine border-river-blue/10"
               >
                 <Cloud className="w-3 h-3 mr-1" />
                 {tech}
@@ -61,7 +61,7 @@ export default function ShowcaseCard({ company, index }: ShowcaseCardProps) {
 
         {/* Case Study Preview */}
         {company.caseStudy && (
-          <div className="border-t pt-6">
+          <div className="border-t border-fine border-river-blue/10 pt-6">
             <div className="mb-6">
               <h4 className="text-sm font-semibold text-historic-stone uppercase tracking-wide mb-3">
                 The Challenge

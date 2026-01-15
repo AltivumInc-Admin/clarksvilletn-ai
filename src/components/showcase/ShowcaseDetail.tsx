@@ -21,7 +21,7 @@ export default function ShowcaseDetail({ company }: ShowcaseDetailProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center justify-center px-3 py-1.5 md:px-4 md:py-2 bg-sunset-copper/10 rounded-full mb-4 md:mb-6"
+            className="inline-flex items-center justify-center px-3 py-1.5 md:px-4 md:py-2 bg-sunset-copper/10 rounded-full border border-fine border-sunset-copper/20 mb-4 md:mb-6"
           >
             <Award className="w-4 h-4 md:w-5 md:h-5 text-sunset-copper mr-1.5 md:mr-2" />
             <span className="text-sunset-copper font-medium text-sm md:text-base">Featured Success Story</span>
@@ -55,9 +55,9 @@ export default function ShowcaseDetail({ company }: ShowcaseDetailProps) {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8 shadow-lg"
+                className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8 shadow-subtle border border-fine border-river-blue/10"
               >
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-river-blue/10 rounded-lg flex items-center justify-center mb-3 md:mb-6">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-river-blue/10 rounded-lg flex items-center justify-center mb-3 md:mb-6 border border-fine border-river-blue/10">
                   <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-river-blue" />
                 </div>
                 <h3 className="text-lg md:text-xl lg:text-2xl font-serif font-bold text-river-blue mb-2 md:mb-4">
@@ -73,9 +73,9 @@ export default function ShowcaseDetail({ company }: ShowcaseDetailProps) {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8 shadow-lg"
+                className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8 shadow-subtle border border-fine border-river-blue/10"
               >
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-sunset-copper/10 rounded-lg flex items-center justify-center mb-3 md:mb-6">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-sunset-copper/10 rounded-lg flex items-center justify-center mb-3 md:mb-6 border border-fine border-sunset-copper/10">
                   <Cloud className="w-5 h-5 md:w-6 md:h-6 text-sunset-copper" />
                 </div>
                 <h3 className="text-lg md:text-xl lg:text-2xl font-serif font-bold text-river-blue mb-2 md:mb-4">
@@ -131,7 +131,7 @@ export default function ShowcaseDetail({ company }: ShowcaseDetailProps) {
                 {company.technologies.map((tech) => (
                   <span
                     key={tech}
-                    className="inline-flex items-center px-3 py-1.5 md:px-4 md:py-2 bg-white shadow-md rounded-full text-river-blue font-medium text-xs md:text-sm"
+                    className="inline-flex items-center px-3 py-1.5 md:px-4 md:py-2 bg-white shadow-subtle border border-fine border-river-blue/10 rounded-full text-river-blue font-medium text-xs md:text-sm"
                   >
                     <Cloud className="w-3 h-3 md:w-4 md:h-4 mr-1.5 md:mr-2" />
                     {tech}
@@ -157,9 +157,9 @@ export default function ShowcaseDetail({ company }: ShowcaseDetailProps) {
                   rel="noopener noreferrer"
                   className="block group cursor-pointer"
                 >
-                  <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-river-blue/5 to-sunset-copper/5 p-2">
+                  <div className="relative rounded-2xl overflow-hidden shadow-subtle border border-fine border-river-blue/10 bg-gradient-to-br from-river-blue/5 to-sunset-copper/5 p-2">
                     <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-white/20 backdrop-blur-sm rounded-2xl"></div>
-                    <div className="relative rounded-xl overflow-hidden border border-white/50 shadow-inner">
+                    <div className="relative rounded-xl overflow-hidden border border-fine border-river-blue/10 shadow-inner">
                       <img
                         src="/ecctn.png"
                         alt="Executive Chauffeurs of Clarksville Website"
@@ -167,7 +167,7 @@ export default function ShowcaseDetail({ company }: ShowcaseDetailProps) {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-river-blue/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                       <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
-                        <div className="bg-white/95 backdrop-blur-md rounded-full px-6 py-3 shadow-lg flex items-center">
+                        <div className="bg-white/95 backdrop-blur-md rounded-full px-6 py-3 shadow-subtle border border-fine border-river-blue/10 flex items-center">
                           <Globe className="w-5 h-5 text-river-blue mr-2" />
                           <span className="text-river-blue font-semibold">Visit Live Website</span>
                           <ArrowRight className="w-5 h-5 text-sunset-copper ml-2 group-hover:translate-x-1 transition-transform" />

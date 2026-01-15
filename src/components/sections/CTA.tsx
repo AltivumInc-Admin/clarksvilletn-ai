@@ -4,7 +4,7 @@ import Button from '../ui/Button';
 
 export default function CTA() {
   return (
-    <section className="py-12 md:py-24 bg-river-gradient relative overflow-hidden">
+    <section className="py-12 md:py-24 bg-river-gradient relative overflow-hidden border-t border-fine border-cloud-white/10">
       <div className="absolute inset-0 bg-[url('/images/cloud-pattern.svg')] opacity-10"></div>
       
       <div className="container mx-auto px-4 md:px-6 relative z-10">
