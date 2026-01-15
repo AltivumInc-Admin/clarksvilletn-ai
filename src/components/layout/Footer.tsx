@@ -8,7 +8,7 @@ export default function Footer() {
     <footer className="bg-river-blue text-cloud-white">
       <div className="container mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div>
+          <div className="pb-8 md:pb-0 border-b md:border-b-0 md:border-r border-fine border-cloud-white/10">
             <div className="flex items-center space-x-3 mb-4">
               <Cloud className="w-8 h-8 text-sunset-copper" />
               <h3 className="text-xl font-serif font-bold">ClarksvilleTN.AI</h3>
@@ -21,7 +21,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <div>
+          <div className="pb-8 md:pb-0 border-b md:border-b-0 md:border-r border-fine border-cloud-white/10">
             <h4 className="font-serif font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
@@ -37,7 +37,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div>
+          <div className="pb-8 md:pb-0 border-b md:border-b-0 md:border-r border-fine border-cloud-white/10">
             <h4 className="font-serif font-semibold mb-4">Connect</h4>
             <ul className="space-y-3">
               <li className="flex items-center space-x-2 text-sm text-cloud-white/80">
@@ -64,19 +64,19 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-cloud-white/20">
+        <div className="mt-12 pt-8 border-t border-fine border-cloud-white/20">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-sm text-cloud-white/60">
               © {currentYear} Altivum Inc. All rights reserved.
             </p>
             <div className="flex items-center space-x-6">
-              <Link to="/legal" className="text-sm text-cloud-white/60 hover:text-sunset-copper transition-colors">
+              <Link to="/legal" className="text-sm text-cloud-white/60 hover:text-sunset-copper transition-colors relative after:absolute after:left-0 after:right-0 after:bottom-0 after:h-px after:bg-sunset-copper after:opacity-0 hover:after:opacity-100 after:transition-opacity">
                 Legal Notice
               </Link>
-              <Link to="/privacy" className="text-sm text-cloud-white/60 hover:text-sunset-copper transition-colors">
+              <Link to="/legal#privacy" className="text-sm text-cloud-white/60 hover:text-sunset-copper transition-colors relative after:absolute after:left-0 after:right-0 after:bottom-0 after:h-px after:bg-sunset-copper after:opacity-0 hover:after:opacity-100 after:transition-opacity">
                 Privacy Policy
               </Link>
-              <Link to="/terms" className="text-sm text-cloud-white/60 hover:text-sunset-copper transition-colors">
+              <Link to="/legal#terms" className="text-sm text-cloud-white/60 hover:text-sunset-copper transition-colors relative after:absolute after:left-0 after:right-0 after:bottom-0 after:h-px after:bg-sunset-copper after:opacity-0 hover:after:opacity-100 after:transition-opacity">
                 Terms of Service
               </Link>
             </div>
@@ -84,7 +84,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="bg-river-blue-dark py-2">
+      <div className="bg-river-blue-dark py-2 border-t border-fine border-cloud-white/10">
         <div className="container mx-auto px-6">
           <p className="text-xs text-center text-cloud-white/40">
             Owned and operated by Altivum<sup>™</sup> Inc., a for-profit benefit corporation incorporated in Tennessee

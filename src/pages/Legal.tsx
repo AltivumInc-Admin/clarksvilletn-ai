@@ -83,7 +83,7 @@ export default function Legal() {
 
               <hr className="border-tech-silver mb-8" />
 
-              <h2 className="text-2xl font-serif font-semibold text-river-blue mb-4">
+              <h2 id="terms" className="text-2xl font-serif font-semibold text-river-blue mb-4">
                 4. Disclaimers & Limitations of Liability
               </h2>
               <p className="text-historic-stone mb-4 leading-relaxed">
@@ -103,7 +103,7 @@ export default function Legal() {
 
               <hr className="border-tech-silver mb-8" />
 
-              <h2 className="text-2xl font-serif font-semibold text-river-blue mb-4">
+              <h2 id="privacy" className="text-2xl font-serif font-semibold text-river-blue mb-4">
                 5. Privacy Policy
               </h2>
               <p className="text-historic-stone mb-4 leading-relaxed">
