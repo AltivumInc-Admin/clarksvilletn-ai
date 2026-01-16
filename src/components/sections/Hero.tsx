@@ -5,8 +5,10 @@ import Button from '../ui/Button';
 export default function Hero() {
   return (
     <section className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center overflow-hidden py-20 md:py-0">
-      <div className="absolute inset-0 bg-gradient-to-br from-cloud-white via-tech-silver/30 to-cloud-white"></div>
-      
+      <div className="absolute inset-0 bg-hero-gradient"></div>
+      <div className="absolute inset-0 bg-mesh-gradient"></div>
+      <div className="absolute inset-0 bg-pattern-dots opacity-40"></div>
+
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
           className="absolute -top-40 -right-40 w-96 h-96 bg-sunset-copper/10 rounded-full blur-3xl"
@@ -44,14 +46,14 @@ export default function Hero() {
             transition={{ duration: 0.8 }}
             className="mb-8"
           >
-            <div className="inline-flex items-center space-x-1.5 md:space-x-2 bg-white/80 backdrop-blur-sm px-3 py-1.5 md:px-4 md:py-2 rounded-full shadow-river mb-4 md:mb-6">
+            <div className="inline-flex items-center space-x-1.5 md:space-x-2 glass-light px-3 py-1.5 md:px-4 md:py-2 rounded-full shadow-elevation-2 mb-4 md:mb-6">
               <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4 text-sunset-copper" />
               <span className="text-xs md:text-sm font-medium text-river-blue">
                 Launching "Clarksville on the Cloud" Campaign
               </span>
             </div>
-            
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-river-blue mb-4 md:mb-6">
+
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-river-blue mb-4 md:mb-6 text-shadow-hero">
               Clarksville's Gateway to
               <span className="block gradient-text">Cloud & AI Innovation</span>
             </h1>
@@ -93,7 +95,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
-                className="text-center"
+                className="text-center glass-light rounded-2xl p-3 md:p-6 shadow-elevation-1"
               >
                 <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-sunset-copper mb-1 md:mb-2">
                   {stat.number}

@@ -25,6 +25,8 @@
     color: #1e3a5f;
     font-family: theme('fontFamily.sans');
     font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -51,18 +53,162 @@
     animation: fade-in 0.5s ease-in-out;
   }
 
+  /* ============================================
+     GLASS MORPHISM VARIANTS
+     ============================================ */
+
   .glass-effect {
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
 
+  .glass-light {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 16px rgba(30, 58, 95, 0.06);
+  }
+
+  .glass-medium {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px rgba(30, 58, 95, 0.08);
+  }
+
+  .glass-dark {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(30, 58, 95, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+
+  .glass-copper {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(184, 115, 51, 0.08);
+    border: 1px solid rgba(184, 115, 51, 0.15);
+  }
+
+  /* ============================================
+     GRADIENT BORDERS
+     ============================================ */
+
+  .border-gradient-river {
+    position: relative;
+    background: white;
+    border-radius: inherit;
+  }
+
+  .border-gradient-river::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, #1e3a5f, #2d4a7a);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .border-gradient-copper {
+    position: relative;
+    background: white;
+    border-radius: inherit;
+  }
+
+  .border-gradient-copper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, #b87333, #d4884a);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* ============================================
+     BACKGROUND PATTERNS
+     ============================================ */
+
+  .bg-pattern-dots {
+    background-image: radial-gradient(rgba(30, 58, 95, 0.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .bg-pattern-grid {
+    background-image:
+      linear-gradient(rgba(30, 58, 95, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30, 58, 95, 0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .bg-pattern-diagonal {
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(30, 58, 95, 0.02) 10px,
+      rgba(30, 58, 95, 0.02) 20px
+    );
+  }
+
+  .bg-pattern-mesh {
+    background-image:
+      linear-gradient(135deg, rgba(30, 58, 95, 0.04) 0%, transparent 50%),
+      linear-gradient(225deg, rgba(184, 115, 51, 0.03) 0%, transparent 50%);
+  }
+
+  /* ============================================
+     TEXT EFFECTS
+     ============================================ */
+
   .gradient-text {
-    background: linear-gradient(to right, #1e3a5f, #b87333);
+    background: linear-gradient(135deg, #1e3a5f, #b87333);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
+
+  .gradient-text-copper {
+    background: linear-gradient(135deg, #9c5f2a, #d4884a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .gradient-text-premium {
+    background: linear-gradient(135deg, #1e3a5f 0%, #b87333 50%, #1e3a5f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-shadow-subtle {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .text-shadow-hero {
+    text-shadow: 0 2px 4px rgba(30, 58, 95, 0.12), 0 4px 8px rgba(30, 58, 95, 0.08);
+  }
+
+  .text-shadow-light {
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+  }
+
+  /* ============================================
+     SHADOW UTILITIES
+     ============================================ */
 
   .shadow-river {
     box-shadow: 0 2px 8px rgba(30, 58, 95, 0.08), 0 1px 2px rgba(30, 58, 95, 0.04);
@@ -76,11 +222,10 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
   }
 
-  .text-shadow-subtle {
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  }
+  /* ============================================
+     BORDER UTILITIES
+     ============================================ */
 
-  /* Fine line utilities */
   .border-fine {
     border-width: 1px;
   }
@@ -106,7 +251,97 @@
     border-top-width: 1px;
     border-color: rgba(233, 236, 239, 0.6);
   }
+
+  /* ============================================
+     INTERACTIVE STATES
+     ============================================ */
+
+  .card-hover-lift {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-hover-lift:hover {
+    transform: translateY(-4px);
+  }
+
+  .icon-hover-scale {
+    transition: transform 0.2s ease;
+  }
+
+  .icon-hover-scale:hover {
+    transform: scale(1.1);
+  }
+
+  .link-hover-slide {
+    position: relative;
+  }
+
+  .link-hover-slide::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.3s ease;
+  }
+
+  .link-hover-slide:hover::after {
+    width: 100%;
+  }
+
+  /* Button shimmer effect */
+  .btn-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.5s ease;
+  }
+
+  .btn-shimmer:hover::before {
+    left: 100%;
+  }
+
+  /* Focus ring enhancement */
+  .focus-ring-copper:focus-visible {
+    outline: 2px solid rgba(184, 115, 51, 0.5);
+    outline-offset: 2px;
+  }
+
+  .focus-ring-river:focus-visible {
+    outline: 2px solid rgba(30, 58, 95, 0.5);
+    outline-offset: 2px;
+  }
+
+  /* Active press state */
+  .press-scale {
+    transition: transform 0.1s ease;
+  }
+
+  .press-scale:active {
+    transform: scale(0.98);
+  }
 }
+
+/* ============================================
+   KEYFRAME ANIMATIONS
+   ============================================ */
 
 @keyframes float {
   0%, 100% {
@@ -125,5 +360,23 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(184, 115, 51, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(184, 115, 51, 0.5);
   }
 }

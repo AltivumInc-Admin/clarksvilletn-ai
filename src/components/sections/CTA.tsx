@@ -4,18 +4,19 @@ import Button from '../ui/Button';
 
 export default function CTA() {
   return (
-    <section className="py-12 md:py-24 bg-river-gradient relative overflow-hidden border-t border-fine border-cloud-white/10">
-      <div className="absolute inset-0 bg-[url('/images/cloud-pattern.svg')] opacity-10"></div>
-      
+    <section className="py-12 md:py-24 bg-cta-gradient relative overflow-hidden">
+      <div className="absolute inset-0 bg-pattern-diagonal opacity-20"></div>
+      <div className="absolute inset-0 bg-copper-radial"></div>
+
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="max-w-4xl mx-auto text-center"
+          className="max-w-4xl mx-auto text-center glass-dark rounded-3xl p-8 md:p-12"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white mb-3 md:mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white mb-3 md:mb-6 text-shadow-subtle">
             Ready to Join Clarksville's Cloud Revolution?
           </h2>
           <p className="text-sm md:text-lg lg:text-xl text-cloud-white/90 mb-6 md:mb-8 max-w-2xl mx-auto">

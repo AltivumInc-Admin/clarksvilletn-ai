@@ -14,13 +14,13 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', href, external, target, rel, children, ...props }, ref) => {
-    const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2';
-    
+    const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-[0.98]';
+
     const variants = {
-      primary: 'bg-sunset-copper text-white hover:bg-sunset-copper-dark focus:ring-sunset-copper shadow-subtle',
-      secondary: 'bg-river-blue text-white hover:bg-river-blue-dark focus:ring-river-blue shadow-subtle',
-      outline: 'border border-fine border-river-blue/20 text-river-blue hover:bg-river-blue/5 hover:border-river-blue/40 focus:ring-river-blue',
-      ghost: 'text-river-blue hover:bg-river-blue/5 focus:ring-river-blue border border-fine border-transparent hover:border-river-blue/10',
+      primary: 'bg-sunset-copper text-white hover:bg-sunset-copper-dark focus:ring-sunset-copper shadow-elevation-2 hover:shadow-copper-glow btn-shimmer',
+      secondary: 'bg-river-blue text-white hover:bg-river-blue-dark focus:ring-river-blue shadow-elevation-2 hover:shadow-river-glow btn-shimmer',
+      outline: 'border border-river-blue/20 text-river-blue hover:bg-river-blue/5 hover:border-river-blue/40 focus:ring-river-blue hover:shadow-elevation-2',
+      ghost: 'text-river-blue hover:bg-river-blue/5 focus:ring-river-blue border border-transparent hover:border-river-blue/10',
     };
 
     const sizes = {

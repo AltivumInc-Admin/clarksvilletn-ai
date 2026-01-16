@@ -48,8 +48,9 @@ const features = [
 
 export default function Features() {
   return (
-    <section className="py-12 md:py-24 bg-gradient-to-b from-cloud-white to-tech-silver/30">
-      <div className="container mx-auto px-4 md:px-6">
+    <section className="py-12 md:py-24 bg-gradient-to-b from-cloud-white to-tech-silver/30 relative">
+      <div className="absolute inset-0 bg-river-radial"></div>
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -76,8 +77,8 @@ export default function Features() {
               viewport={{ once: true }}
               className="group"
             >
-              <div className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8 shadow-subtle border border-fine border-river-blue/10 hover:border-river-blue/20 hover:shadow-river transition-all duration-300 h-full">
-                <div className={`w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 ${feature.bgColor} rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-4 lg:mb-6 group-hover:scale-110 transition-transform border border-fine border-river-blue/5`}>
+              <div className="bg-card-premium rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8 shadow-elevation-1 border border-river-blue/5 hover:border-river-blue/15 hover:shadow-elevation-3 card-hover-lift h-full">
+                <div className={`w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 ${feature.bgColor} rounded-lg md:rounded-xl flex items-center justify-center mb-3 md:mb-4 lg:mb-6 group-hover:scale-110 transition-transform duration-300 border border-river-blue/5`}>
                   <feature.icon className={`w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 ${feature.color}`} />
                 </div>
                 <h3 className="text-lg md:text-xl lg:text-2xl font-serif font-semibold text-river-blue mb-2 md:mb-3">

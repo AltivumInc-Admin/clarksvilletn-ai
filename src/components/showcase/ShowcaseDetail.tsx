@@ -12,7 +12,7 @@ export default function ShowcaseDetail({ company }: ShowcaseDetailProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="py-12 md:py-24 bg-gradient-to-b from-white to-cloud-white"
+      className="py-12 md:py-24 bg-gradient-to-b from-white to-cloud-white relative"
     >
       <div className="container mx-auto px-4 md:px-6">
         {/* Hero Section */}
@@ -21,7 +21,7 @@ export default function ShowcaseDetail({ company }: ShowcaseDetailProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center justify-center px-3 py-1.5 md:px-4 md:py-2 bg-sunset-copper/10 rounded-full border border-fine border-sunset-copper/20 mb-4 md:mb-6"
+            className="inline-flex items-center justify-center px-3 py-1.5 md:px-4 md:py-2 glass-copper rounded-full shadow-elevation-1 mb-4 md:mb-6"
           >
             <Award className="w-4 h-4 md:w-5 md:h-5 text-sunset-copper mr-1.5 md:mr-2" />
             <span className="text-sunset-copper font-medium text-sm md:text-base">Featured Success Story</span>
@@ -55,9 +55,9 @@ export default function ShowcaseDetail({ company }: ShowcaseDetailProps) {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8 shadow-subtle border border-fine border-river-blue/10"
+                className="bg-card-premium rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8 shadow-elevation-2 border border-river-blue/5 card-hover-lift"
               >
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-river-blue/10 rounded-lg flex items-center justify-center mb-3 md:mb-6 border border-fine border-river-blue/10">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-river-blue/10 rounded-xl flex items-center justify-center mb-3 md:mb-6 border border-river-blue/10">
                   <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-river-blue" />
                 </div>
                 <h3 className="text-lg md:text-xl lg:text-2xl font-serif font-bold text-river-blue mb-2 md:mb-4">
@@ -73,9 +73,9 @@ export default function ShowcaseDetail({ company }: ShowcaseDetailProps) {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8 shadow-subtle border border-fine border-river-blue/10"
+                className="bg-card-premium rounded-xl md:rounded-2xl p-4 md:p-6 lg:p-8 shadow-elevation-2 border border-river-blue/5 card-hover-lift"
               >
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-sunset-copper/10 rounded-lg flex items-center justify-center mb-3 md:mb-6 border border-fine border-sunset-copper/10">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-sunset-copper/10 rounded-xl flex items-center justify-center mb-3 md:mb-6 border border-sunset-copper/10">
                   <Cloud className="w-5 h-5 md:w-6 md:h-6 text-sunset-copper" />
                 </div>
                 <h3 className="text-lg md:text-xl lg:text-2xl font-serif font-bold text-river-blue mb-2 md:mb-4">
@@ -131,7 +131,7 @@ export default function ShowcaseDetail({ company }: ShowcaseDetailProps) {
                 {company.technologies.map((tech) => (
                   <span
                     key={tech}
-                    className="inline-flex items-center px-3 py-1.5 md:px-4 md:py-2 bg-white shadow-subtle border border-fine border-river-blue/10 rounded-full text-river-blue font-medium text-xs md:text-sm"
+                    className="inline-flex items-center px-3 py-1.5 md:px-4 md:py-2 glass-light shadow-elevation-1 rounded-full text-river-blue font-medium text-xs md:text-sm hover:shadow-elevation-2 transition-shadow duration-300"
                   >
                     <Cloud className="w-3 h-3 md:w-4 md:h-4 mr-1.5 md:mr-2" />
                     {tech}

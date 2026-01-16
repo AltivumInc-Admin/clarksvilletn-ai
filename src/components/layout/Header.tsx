@@ -31,9 +31,9 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
         isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-subtle border-b border-fine border-fine-river'
+          ? 'glass-medium shadow-elevation-2'
           : 'bg-transparent'
       }`}
     >
@@ -81,7 +81,7 @@ export default function Header() {
                 {link.label}
                 {location.pathname === link.href && (
                   <motion.div
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-sunset-copper"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-sunset-copper to-sunset-copper-light rounded-full"
                     layoutId="activeTab"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
@@ -110,7 +110,7 @@ export default function Header() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-white/95 backdrop-blur-md border-t border-fine border-fine-river"
+            className="lg:hidden glass-medium border-t border-white/20"
           >
             <div className="container mx-auto px-6 py-4">
               {navLinks.map((link, index) => (
