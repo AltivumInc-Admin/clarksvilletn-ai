@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { TrendingUp, Building2, DollarSign, Briefcase, GraduationCap } from 'lucide-react';
+import { TrendingUp, Building2, DollarSign, Briefcase, GraduationCap, AlertCircle } from 'lucide-react';
+import CTA from '../components/sections/CTA';
 
 const stats = [
   {
@@ -9,6 +10,7 @@ const stats = [
     icon: TrendingUp,
     color: 'text-sunset-copper',
     bgColor: 'bg-sunset-copper/10',
+    borderColor: 'border-sunset-copper/20',
   },
   {
     label: 'Tech Jobs Created',
@@ -17,22 +19,25 @@ const stats = [
     icon: Briefcase,
     color: 'text-river-blue',
     bgColor: 'bg-river-blue/10',
+    borderColor: 'border-river-blue/20',
   },
   {
-    label: 'Average Salary Increase',
+    label: 'Average Tech Salary',
     value: '$85K',
     period: 'Tech Positions',
     icon: DollarSign,
     color: 'text-fort-green',
     bgColor: 'bg-fort-green/10',
+    borderColor: 'border-fort-green/20',
   },
   {
-    label: 'Companies Adopting Cloud',
+    label: 'Cloud-Adopting Companies',
     value: '156',
     period: 'Local Businesses',
     icon: Building2,
     color: 'text-sunset-copper',
     bgColor: 'bg-sunset-copper/10',
+    borderColor: 'border-sunset-copper/20',
   },
   {
     label: 'STEM Graduates',
@@ -41,6 +46,7 @@ const stats = [
     icon: GraduationCap,
     color: 'text-river-blue',
     bgColor: 'bg-river-blue/10',
+    borderColor: 'border-river-blue/20',
   },
   {
     label: 'Tech Investment',
@@ -49,6 +55,7 @@ const stats = [
     icon: DollarSign,
     color: 'text-fort-green',
     bgColor: 'bg-fort-green/10',
+    borderColor: 'border-fort-green/20',
   },
 ];
 
@@ -60,83 +67,219 @@ const growthData = [
   { year: '2024', businesses: 156, investment: 127 },
 ];
 
+const industries = [
+  { name: 'Manufacturing', percentage: 32, count: 50, color: 'bg-river-blue' },
+  { name: 'Healthcare', percentage: 24, count: 37, color: 'bg-sunset-copper' },
+  { name: 'Retail & E-commerce', percentage: 28, count: 44, color: 'bg-fort-green' },
+  { name: 'Professional Services', percentage: 16, count: 25, color: 'bg-river-blue-400' },
+];
+
 export default function Analytics() {
   const maxBusinesses = Math.max(...growthData.map(d => d.businesses));
   const maxInvestment = Math.max(...growthData.map(d => d.investment));
 
   return (
     <>
-      <section className="pt-32 pb-16 bg-gradient-to-b from-cloud-white to-tech-silver/30">
-        <div className="container mx-auto px-6">
+      {/* Hero */}
+      <section className="pt-28 md:pt-36 pb-16 md:pb-20 bg-gradient-to-b from-river-blue-50 to-cloud-white">
+        <div className="container mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-12"
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl mx-auto text-center"
           >
-            <h1 className="text-5xl md:text-6xl font-serif font-bold text-river-blue mb-6">
+            <span className="text-sm font-medium text-sunset-copper tracking-wider uppercase">Data & Insights</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-river-blue mt-3 mb-6">
               Clarksville Tech Analytics
             </h1>
-            <p className="text-xl text-historic-stone max-w-3xl mx-auto">
-              Real data showcasing Clarksville's remarkable transformation into 
-              Tennessee's emerging technology hub.
+            <p className="text-lg md:text-xl text-historic-stone leading-relaxed">
+              Tracking Clarksville's remarkable transformation into Tennessee's emerging
+              technology hub with real data and measurable outcomes.
             </p>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="max-w-4xl mx-auto"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="max-w-3xl mx-auto mt-8"
           >
-            <div className="bg-sunset-copper/10 border-2 border-sunset-copper/20 rounded-xl p-6 text-center">
-              <p className="text-lg text-river-blue font-medium">
-                <strong>Note:</strong> These visualizations represent sample analytics demonstrating our vision 
-                for tracking and presenting Clarksville's tech and AI adoption. Our goal is to provide 
-                businesses and public sector organizations with clear insights into the local technology 
-                landscape, enabling data-driven decisions for digital transformation.
+            <div className="flex items-start gap-3 bg-sunset-copper/5 border border-sunset-copper/15 rounded-xl p-4">
+              <AlertCircle className="w-5 h-5 text-sunset-copper flex-shrink-0 mt-0.5" />
+              <p className="text-sm text-river-blue">
+                <strong>Note:</strong> These visualizations represent sample analytics demonstrating our
+                vision for tracking Clarksville's tech landscape. Live data dashboards are under development.
               </p>
             </div>
           </motion.div>
         </div>
       </section>
 
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-6">
+      {/* Key Metrics */}
+      <section className="py-16 md:py-20 bg-white">
+        <div className="container mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-12"
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mb-10"
           >
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-river-blue mb-4">
-              Growth Metrics
+            <span className="text-sm font-medium text-sunset-copper tracking-wider uppercase">Key Metrics</span>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-river-blue mt-2">
+              Growth at a Glance
             </h2>
-            <p className="text-lg text-historic-stone">
-              Key performance indicators driving Clarksville's digital economy
-            </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-river p-6 hover:shadow-copper transition-all duration-300"
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
+                viewport={{ once: true }}
+                className={`bg-white rounded-xl border ${stat.borderColor} p-5 hover:shadow-elevation-2 transition-all duration-300`}
               >
-                <div className="flex items-start justify-between mb-4">
-                  <div className={`w-12 h-12 ${stat.bgColor} rounded-lg flex items-center justify-center`}>
-                    <stat.icon className={`w-6 h-6 ${stat.color}`} />
+                <div className="flex items-start justify-between mb-3">
+                  <div className={`w-10 h-10 ${stat.bgColor} rounded-lg flex items-center justify-center`}>
+                    <stat.icon className={`w-5 h-5 ${stat.color}`} />
                   </div>
-                  <span className="text-sm text-historic-stone">{stat.period}</span>
+                  <span className="text-xs text-historic-stone">{stat.period}</span>
                 </div>
-                <div className={`text-3xl font-bold ${stat.color} mb-2`}>
-                  {stat.value}
+                <div className={`text-3xl font-bold ${stat.color} mb-1`}>{stat.value}</div>
+                <div className="text-sm text-river-blue font-medium">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Growth Charts */}
+      <section className="py-16 md:py-20 bg-tech-silver/20">
+        <div className="container mx-auto px-4 md:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mb-10"
+          >
+            <span className="text-sm font-medium text-sunset-copper tracking-wider uppercase">Trends</span>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-river-blue mt-2">
+              5-Year Growth Trajectory
+            </h2>
+          </motion.div>
+
+          <div className="bg-white rounded-2xl shadow-elevation-1 border border-river-blue/5 p-6 md:p-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-lg font-serif font-semibold text-river-blue mb-6">
+                  Cloud-Adopting Businesses
+                </h3>
+                <div className="space-y-4">
+                  {growthData.map((data, index) => (
+                    <motion.div
+                      key={data.year}
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                    >
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-sm font-medium text-historic-stone">{data.year}</span>
+                        <span className="text-sm font-bold text-river-blue">{data.businesses}</span>
+                      </div>
+                      <div className="h-5 bg-river-blue/5 rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${(data.businesses / maxBusinesses) * 100}%` }}
+                          transition={{ duration: 1, delay: index * 0.1 }}
+                          viewport={{ once: true }}
+                          className="h-full bg-gradient-to-r from-river-blue to-river-blue-400 rounded-full"
+                        />
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
-                <div className="text-river-blue font-medium">
-                  {stat.label}
+              </div>
+
+              <div>
+                <h3 className="text-lg font-serif font-semibold text-river-blue mb-6">
+                  Tech Investment ($M)
+                </h3>
+                <div className="space-y-4">
+                  {growthData.map((data, index) => (
+                    <motion.div
+                      key={data.year}
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                    >
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-sm font-medium text-historic-stone">{data.year}</span>
+                        <span className="text-sm font-bold text-fort-green">${data.investment}M</span>
+                      </div>
+                      <div className="h-5 bg-fort-green/5 rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${(data.investment / maxInvestment) * 100}%` }}
+                          transition={{ duration: 1, delay: index * 0.1 }}
+                          viewport={{ once: true }}
+                          className="h-full bg-gradient-to-r from-fort-green to-fort-green-400 rounded-full"
+                        />
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Industry Breakdown */}
+      <section className="py-16 md:py-20 bg-white">
+        <div className="container mx-auto px-4 md:px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mb-10"
+          >
+            <span className="text-sm font-medium text-sunset-copper tracking-wider uppercase">Sectors</span>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-river-blue mt-2">
+              Industry Breakdown
+            </h2>
+          </motion.div>
+
+          <div className="max-w-3xl mx-auto space-y-6">
+            {industries.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-river-blue">{item.name}</span>
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs text-historic-stone">{item.count} businesses</span>
+                    <span className="text-sm font-bold text-sunset-copper">{item.percentage}%</span>
+                  </div>
+                </div>
+                <div className="h-3 bg-river-blue/5 rounded-full overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${item.percentage}%` }}
+                    transition={{ duration: 0.8, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className={`h-full ${item.color} rounded-full`}
+                  />
                 </div>
               </motion.div>
             ))}
@@ -144,159 +287,14 @@ export default function Analytics() {
         </div>
       </section>
 
-      <section className="py-16 bg-warm-beige/20">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-river-blue text-center mb-12">
-              5-Year Growth Trajectory
-            </h2>
-            
-            <div className="bg-white rounded-2xl shadow-river p-8">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div>
-                  <h3 className="text-xl font-semibold text-river-blue mb-6">
-                    Cloud-Adopting Businesses
-                  </h3>
-                  <div className="space-y-4">
-                    {growthData.map((data, index) => (
-                      <motion.div
-                        key={data.year}
-                        initial={{ opacity: 0, width: 0 }}
-                        animate={{ opacity: 1, width: '100%' }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                        className="relative"
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm font-medium text-historic-stone">{data.year}</span>
-                          <span className="text-sm font-bold text-river-blue">{data.businesses}</span>
-                        </div>
-                        <div className="h-6 bg-tech-silver rounded-full overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: `${(data.businesses / maxBusinesses) * 100}%` }}
-                            transition={{ duration: 1, delay: index * 0.1 }}
-                            className="h-full bg-gradient-to-r from-river-blue to-sunset-copper"
-                          />
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-semibold text-river-blue mb-6">
-                    Tech Investment (Millions)
-                  </h3>
-                  <div className="space-y-4">
-                    {growthData.map((data, index) => (
-                      <motion.div
-                        key={data.year}
-                        initial={{ opacity: 0, width: 0 }}
-                        animate={{ opacity: 1, width: '100%' }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                        className="relative"
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm font-medium text-historic-stone">{data.year}</span>
-                          <span className="text-sm font-bold text-fort-green">${data.investment}M</span>
-                        </div>
-                        <div className="h-6 bg-tech-silver rounded-full overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: `${(data.investment / maxInvestment) * 100}%` }}
-                            transition={{ duration: 1, delay: index * 0.1 }}
-                            className="h-full bg-gradient-to-r from-fort-green to-sunset-copper"
-                          />
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-river-blue mb-8">
-              Industry Breakdown
-            </h2>
-            
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-              {[
-                { industry: 'Manufacturing', percentage: '32%', count: '50' },
-                { industry: 'Healthcare', percentage: '24%', count: '37' },
-                { industry: 'Retail & E-commerce', percentage: '28%', count: '44' },
-                { industry: 'Professional Services', percentage: '16%', count: '25' },
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="bg-gradient-to-br from-river-blue/5 to-sunset-copper/5 rounded-xl p-6"
-                >
-                  <div className="text-3xl font-bold text-sunset-copper mb-2">
-                    {item.percentage}
-                  </div>
-                  <div className="text-sm font-medium text-river-blue mb-1">
-                    {item.industry}
-                  </div>
-                  <div className="text-xs text-historic-stone">
-                    {item.count} businesses
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="py-24 bg-river-gradient">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <h2 className="text-4xl font-serif font-bold text-white mb-6">
-              Join Clarksville's Tech Revolution
-            </h2>
-            <p className="text-xl text-cloud-white/90 mb-8">
-              These numbers tell a story of transformation. Be part of the next chapter 
-              as Clarksville continues its journey to becoming Tennessee's premier tech destination.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="https://forms.gle/SdQrmVQzKguJduGBA"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-8 py-3.5 text-lg font-medium rounded-lg bg-sunset-copper text-white hover:bg-sunset-copper-dark transition-all duration-200 shadow-copper"
-              >
-                Take Our Survey
-                <TrendingUp className="ml-2 w-5 h-5" />
-              </a>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <CTA
+        title="Join Clarksville's Tech Revolution"
+        description="These numbers tell a story of transformation. Be part of the next chapter."
+        primaryLabel="Take Our Survey"
+        primaryHref="https://forms.gle/SdQrmVQzKguJduGBA"
+        secondaryLabel="View Programs"
+        secondaryHref="/programs"
+      />
     </>
   );
 }

@@ -1,127 +1,98 @@
 import { motion } from 'framer-motion';
-import { Cloud, ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Brain, Building2, Users, Lightbulb } from 'lucide-react';
 import Button from '../ui/Button';
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center overflow-hidden py-20 md:py-0">
-      <div className="absolute inset-0 bg-hero-gradient"></div>
-      <div className="absolute inset-0 bg-mesh-gradient"></div>
-      <div className="absolute inset-0 bg-pattern-dots opacity-40"></div>
+    <section className="relative min-h-[90vh] md:min-h-screen flex items-center overflow-hidden">
+      <div className="absolute inset-0 bg-hero-dark"></div>
+      <div className="absolute inset-0 bg-pattern-grid opacity-10"></div>
 
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          className="absolute -top-40 -right-40 w-96 h-96 bg-sunset-copper/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            repeatType: 'reverse',
-          }}
+          className="absolute top-1/4 -right-32 w-[500px] h-[500px] bg-sunset-copper/8 rounded-full blur-[100px]"
+          animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.6, 0.4] }}
+          transition={{ duration: 10, repeat: Infinity, repeatType: 'reverse' }}
         />
         <motion.div
-          className="absolute -bottom-40 -left-40 w-96 h-96 bg-river-blue/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.3, 0.6, 0.3],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            repeatType: 'reverse',
-          }}
+          className="absolute -bottom-20 -left-20 w-[400px] h-[400px] bg-river-blue-400/10 rounded-full blur-[80px]"
+          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 12, repeat: Infinity, repeatType: 'reverse' }}
+        />
+        <motion.div
+          className="absolute top-1/3 left-1/3 w-[300px] h-[300px] bg-fort-green/5 rounded-full blur-[60px]"
+          animate={{ scale: [1.1, 1, 1.1], opacity: [0.2, 0.4, 0.2] }}
+          transition={{ duration: 14, repeat: Infinity, repeatType: 'reverse' }}
         />
       </div>
 
-      <div className="absolute inset-0 bg-[url('/images/clarksville-river.jpg')] bg-cover bg-center opacity-5"></div>
-
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="max-w-5xl mx-auto text-center">
+      <div className="container mx-auto px-4 md:px-6 relative z-10 py-20 md:py-0">
+        <div className="max-w-5xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="mb-8"
           >
-            <div className="inline-flex items-center space-x-1.5 md:space-x-2 glass-light px-3 py-1.5 md:px-4 md:py-2 rounded-full shadow-elevation-2 mb-4 md:mb-6">
-              <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4 text-sunset-copper" />
-              <span className="text-xs md:text-sm font-medium text-river-blue">
-                Launching "Clarksville on the Cloud" Campaign
+            <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm border border-white/10 px-4 py-2 rounded-full mb-6">
+              <span className="w-2 h-2 rounded-full bg-fort-green animate-pulse-slow"></span>
+              <span className="text-sm font-medium text-white/90">
+                Building Tennessee's AI Future
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-river-blue mb-4 md:mb-6 text-shadow-hero">
-              Clarksville's Gateway to
-              <span className="block gradient-text">Cloud & AI Innovation</span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 leading-[1.1]">
+              Where Clarksville
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-sunset-copper-300 to-sunset-copper">
+                Meets Innovation
+              </span>
             </h1>
-            
-            <p className="text-base md:text-xl lg:text-2xl text-historic-stone max-w-3xl mx-auto mb-6 md:mb-8 leading-relaxed">
-              Empowering Clarksville businesses with cutting-edge cloud technology and AI innovation. 
-              From Fort Campbell to the Cumberland River, Clarksville is building Tennessee's tech future.
+
+            <p className="text-lg md:text-xl text-white/70 max-w-2xl mb-10 leading-relaxed">
+              ClarksvilleTN.AI is the city's initiative connecting businesses, residents, and
+              institutions with AI and cloud technology to drive economic growth and community
+              transformation.
             </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 mb-16">
+              <Button size="lg" href="/programs">
+                Explore Programs
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+              <Button size="lg" variant="outline" href="/showcase" className="border-white/20 text-white hover:bg-white/10">
+                See Success Stories
+              </Button>
+            </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          >
-            <Button size="lg" href="https://forms.gle/SdQrmVQzKguJduGBA" target="_blank" rel="noopener noreferrer">
-              Take Our Brief Survey
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-            <Button size="lg" variant="outline" href="/showcase">
-              See Success Stories
-            </Button>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="mt-8 md:mt-16 grid grid-cols-3 gap-4 md:gap-8"
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4"
           >
             {[
-              { number: '180K+', label: 'Clarksville Residents' },
-              { number: '1 in 20', label: 'TN Businesses Using AI' },
-              { number: '15%', label: 'Tech Sector Growth' },
+              { icon: Building2, value: '156', label: 'Businesses Adopting Cloud', color: 'text-sunset-copper' },
+              { icon: Users, value: '2,300+', label: 'Tech Jobs Created', color: 'text-river-blue-300' },
+              { icon: Brain, value: '$127M', label: 'Tech Investment', color: 'text-fort-green-300' },
+              { icon: Lightbulb, value: '47%', label: 'Tech Sector Growth', color: 'text-sunset-copper-300' },
             ].map((stat, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
-                className="text-center glass-light rounded-2xl p-3 md:p-6 shadow-elevation-1"
+                transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
+                className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 md:p-5 text-center"
               >
-                <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-sunset-copper mb-1 md:mb-2">
-                  {stat.number}
-                </div>
-                <div className="text-xs md:text-sm text-historic-stone">
-                  {stat.label}
-                </div>
+                <stat.icon className={`w-5 h-5 ${stat.color} mx-auto mb-2`} />
+                <div className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</div>
+                <div className="text-xs text-white/50">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </div>
 
-      <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        animate={{
-          y: [0, 10, 0],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          repeatType: 'reverse',
-        }}
-      >
-        <Cloud className="w-8 h-8 text-river-blue/40" />
-      </motion.div>
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-cloud-white to-transparent"></div>
     </section>
   );
 }
