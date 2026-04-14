@@ -2,40 +2,57 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import Button from '../ui/Button';
 
-export default function CTA() {
+interface CTAProps {
+  title?: string;
+  description?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  variant?: 'dark' | 'gradient';
+}
+
+export default function CTA({
+  title = "Ready to Transform Your Business?",
+  description = "Join Clarksville businesses already leveraging AI and cloud technology. Explore our programs, take our readiness assessment, or connect with our team.",
+  primaryLabel = "Get Started",
+  primaryHref = "/get-involved",
+  secondaryLabel = "View Programs",
+  secondaryHref = "/programs",
+  variant = 'dark',
+}: CTAProps) {
   return (
-    <section className="py-12 md:py-24 bg-cta-gradient relative overflow-hidden">
-      <div className="absolute inset-0 bg-pattern-diagonal opacity-20"></div>
-      <div className="absolute inset-0 bg-copper-radial"></div>
+    <section className={`py-16 md:py-24 relative overflow-hidden ${
+      variant === 'dark' ? 'bg-river-blue-800' : 'bg-cta-gradient'
+    }`}>
+      <div className="absolute inset-0 bg-pattern-dots opacity-5"></div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="max-w-4xl mx-auto text-center glass-dark rounded-3xl p-8 md:p-12"
+          className="max-w-3xl mx-auto text-center"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white mb-3 md:mb-6 text-shadow-subtle">
-            Ready to Join Clarksville's Cloud Revolution?
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white mb-4 md:mb-6">
+            {title}
           </h2>
-          <p className="text-sm md:text-lg lg:text-xl text-cloud-white/90 mb-6 md:mb-8 max-w-2xl mx-auto">
-            Whether you're a local manufacturer, retailer, or service provider, 
-            discover the resources and support available for your cloud journey.
+          <p className="text-lg text-white/70 mb-8 max-w-2xl mx-auto">
+            {description}
           </p>
 
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <Button size="lg" variant="primary" href="https://forms.gle/SdQrmVQzKguJduGBA" target="_blank" rel="noopener noreferrer">
-              Take Our Brief Survey
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" variant="primary" href={primaryHref}>
+              {primaryLabel}
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
-          </motion.div>
+            {secondaryLabel && (
+              <Button size="lg" variant="outline" href={secondaryHref} className="border-white/20 text-white hover:bg-white/10">
+                {secondaryLabel}
+              </Button>
+            )}
+          </div>
         </motion.div>
       </div>
     </section>

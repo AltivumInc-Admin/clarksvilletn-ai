@@ -11,6 +11,7 @@ export interface Company {
     challenge: string;
     solution: string;
     results: string[];
+    metrics?: { label: string; value: string }[];
     testimonial?: {
       text: string;
       author: string;
@@ -31,4 +32,31 @@ export interface Service {
   description: string;
   icon: string;
   features: string[];
+}
+
+export interface Program {
+  id: string;
+  title: string;
+  description: string;
+  audience: string;
+  benefits: string[];
+  status: 'active' | 'coming-soon' | 'pilot';
+}
+
+export interface TimelineEvent {
+  date: string;
+  title: string;
+  description: string;
+  status: 'completed' | 'current' | 'upcoming';
+}
+
+export interface Partner {
+  name: string;
+  type: 'technology' | 'education' | 'government' | 'community';
+}
+
+export interface Stat {
+  value: string;
+  label: string;
+  description?: string;
 }

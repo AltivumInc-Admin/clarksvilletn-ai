@@ -1,0 +1,88 @@
+import type { Program } from '../types';
+
+export const programs: Program[] = [
+  {
+    id: 'ai-readiness',
+    title: 'AI Readiness Assessment',
+    description: 'A comprehensive evaluation of your business operations to identify where AI can deliver the highest impact. Our experts analyze your workflows, data infrastructure, and competitive landscape to create a prioritized AI adoption roadmap.',
+    audience: 'Small & Medium Businesses',
+    benefits: [
+      'Free initial consultation and business analysis',
+      'Custom AI opportunity scorecard for your industry',
+      'Prioritized implementation roadmap with ROI projections',
+      'Connection to vetted AI solution providers',
+      'Follow-up support for 90 days after assessment',
+    ],
+    status: 'active',
+  },
+  {
+    id: 'cloud-migration',
+    title: 'Cloud Migration Accelerator',
+    description: 'End-to-end guidance for moving your business infrastructure to the cloud. From initial assessment through migration and optimization, get expert support at every step of your cloud journey.',
+    audience: 'Businesses with On-Premise Infrastructure',
+    benefits: [
+      'Infrastructure assessment and cloud readiness audit',
+      'Migration planning and architecture design',
+      'Hands-on migration support from certified engineers',
+      'Cost optimization and monitoring setup',
+      'Staff training on cloud management',
+    ],
+    status: 'active',
+  },
+  {
+    id: 'workforce-development',
+    title: 'Tech Workforce Pipeline',
+    description: 'Building Clarksville\'s next generation of tech talent through partnerships with Austin Peay State University, local schools, and training providers. Connecting businesses with job-ready tech workers.',
+    audience: 'Job Seekers, Students & Employers',
+    benefits: [
+      'Free cloud and AI fundamentals courses',
+      'Industry-recognized certification pathways',
+      'Apprenticeship and internship placement',
+      'Employer matching for tech roles',
+      'Veterans transition program for tech careers',
+    ],
+    status: 'active',
+  },
+  {
+    id: 'innovation-grants',
+    title: 'Innovation Micro-Grants',
+    description: 'Funding assistance for qualifying Clarksville businesses ready to implement their first AI or cloud project. Grants range from $2,500 to $25,000 to offset initial technology adoption costs.',
+    audience: 'Clarksville-Based Businesses',
+    benefits: [
+      'Grants from $2,500 to $25,000 for qualifying projects',
+      'Simplified application process with fast review',
+      'Technical mentor assigned to each grant recipient',
+      'Showcase opportunity on ClarksvilleTN.AI platform',
+      'Access to follow-on funding and investor networks',
+    ],
+    status: 'active',
+  },
+  {
+    id: 'smart-city-lab',
+    title: 'Smart City Innovation Lab',
+    description: 'A collaborative space where entrepreneurs, civic leaders, and technologists work together on AI solutions for city challenges including traffic, public safety, sustainability, and citizen services.',
+    audience: 'Entrepreneurs, Civic Leaders & Technologists',
+    benefits: [
+      'Access to shared workspace and prototyping tools',
+      'Mentorship from industry and civic technology experts',
+      'Pilot program opportunities with city departments',
+      'Demo days with potential investors and partners',
+      'Connection to national smart city networks',
+    ],
+    status: 'coming-soon',
+  },
+  {
+    id: 'ai-store',
+    title: 'Clarksville AI Experience Center',
+    description: 'Tennessee\'s first walk-in AI experience center where businesses and residents can interact with AI technologies, attend workshops, and discover solutions relevant to their needs.',
+    audience: 'Everyone',
+    benefits: [
+      'Hands-on AI technology demonstrations',
+      'Weekly workshops and lunch-and-learn sessions',
+      'Industry-specific AI solution showcases',
+      'One-on-one consultations with AI specialists',
+      'Community events and networking opportunities',
+    ],
+    status: 'coming-soon',
+  },
+];

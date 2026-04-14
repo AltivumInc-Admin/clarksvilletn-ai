@@ -1,11 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import Home from './pages/Home';
-import Campaign from './pages/Campaign';
+import About from './pages/About';
+import Programs from './pages/Programs';
 import Showcase from './pages/Showcase';
 import Analytics from './pages/Analytics';
-import Legal from './pages/Legal';
 import Resources from './pages/Resources';
+import GetInvolved from './pages/GetInvolved';
+import Legal from './pages/Legal';
 
 function App() {
   return (
@@ -13,12 +15,16 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="campaign" element={<Campaign />} />
+          <Route path="about" element={<About />} />
+          <Route path="programs" element={<Programs />} />
           <Route path="showcase" element={<Showcase />} />
           <Route path="analytics" element={<Analytics />} />
-          <Route path="legal" element={<Legal />} />
           <Route path="resources" element={<Resources />} />
-          <Route path="contact" element={<div className="min-h-screen pt-20 flex items-center justify-center"><h1 className="text-4xl font-serif text-river-blue">Contact Page - Coming Soon</h1></div>} />
+          <Route path="get-involved" element={<GetInvolved />} />
+          <Route path="legal" element={<Legal />} />
+          {/* Redirect old routes */}
+          <Route path="campaign" element={<About />} />
+          <Route path="contact" element={<GetInvolved />} />
         </Route>
       </Routes>
     </Router>
