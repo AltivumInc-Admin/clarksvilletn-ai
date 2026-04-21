@@ -14,11 +14,11 @@ interface CTAProps {
 
 export default function CTA({
   title = "Ready to Transform Your Business?",
-  description = "Join Clarksville businesses already leveraging AI and cloud technology. Explore our programs, take our readiness assessment, or connect with our team.",
-  primaryLabel = "Get Started",
-  primaryHref = "/get-involved",
-  secondaryLabel = "View Programs",
-  secondaryHref = "/programs",
+  description = "Join Clarksville businesses already leveraging AI and cloud technology. Share your story or see how others are innovating.",
+  primaryLabel = "Share Your Story",
+  primaryHref = "https://forms.gle/SdQrmVQzKguJduGBA",
+  secondaryLabel = "See Success Stories",
+  secondaryHref = "/showcase",
   variant = 'dark',
 }: CTAProps) {
   return (

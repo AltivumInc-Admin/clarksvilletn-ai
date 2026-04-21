@@ -3,14 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Brain } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { NavLink } from '../../types';
-import Button from '../ui/Button';
 
 const navLinks: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
-  { label: 'Programs', href: '/programs' },
   { label: 'Success Stories', href: '/showcase' },
-  { label: 'Analytics', href: '/analytics' },
   { label: 'Resources', href: '/resources' },
 ];
 
@@ -81,12 +78,6 @@ export default function Header() {
             })}
           </div>
 
-          <div className="hidden lg:block">
-            <Button size="sm" href="/get-involved">
-              Get Involved
-            </Button>
-          </div>
-
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="lg:hidden p-2 text-river-blue hover:text-sunset-copper transition-colors rounded-lg hover:bg-river-blue/5"
@@ -126,11 +117,6 @@ export default function Header() {
                   </Link>
                 </motion.div>
               ))}
-              <div className="pt-3 pb-1">
-                <Button size="sm" href="/get-involved" className="w-full">
-                  Get Involved
-                </Button>
-              </div>
             </div>
           </motion.div>
         )}

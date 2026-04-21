@@ -234,8 +234,8 @@ export default function Resources() {
       <CTA
         title="Ready to Start Learning?"
         description="Explore our resources and take the first step toward digital transformation."
-        primaryLabel="Get Started"
-        primaryHref="/get-involved"
+        primaryLabel="Share Your Story"
+        primaryHref="https://forms.gle/SdQrmVQzKguJduGBA"
         secondaryLabel="View Success Stories"
         secondaryHref="/showcase"
       />

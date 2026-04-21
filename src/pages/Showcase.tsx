@@ -270,8 +270,8 @@ export default function Showcase() {
                 Share Your Journey
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
-              <Button variant="outline" href="/programs">
-                Explore Programs
+              <Button variant="outline" href="/resources">
+                Browse Resources
               </Button>
             </div>
           </motion.div>
@@ -281,10 +281,10 @@ export default function Showcase() {
       <CTA
         title="Be Part of Clarksville's Tech Story"
         description="The 'Clarksville on the Cloud' campaign showcases businesses leading the way in digital transformation."
-        primaryLabel="Get Started Today"
-        primaryHref="/get-involved"
-        secondaryLabel="Learn About Programs"
-        secondaryHref="/programs"
+        primaryLabel="Share Your Story"
+        primaryHref="https://forms.gle/SdQrmVQzKguJduGBA"
+        secondaryLabel="Browse Resources"
+        secondaryHref="/resources"
       />
     </>
   );
