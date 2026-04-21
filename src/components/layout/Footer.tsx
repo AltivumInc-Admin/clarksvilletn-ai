@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="absolute inset-0 bg-pattern-dots opacity-5"></div>
 
       <div className="container mx-auto px-4 md:px-6 pt-16 pb-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-12">
           <div>
             <div className="flex items-center space-x-2.5 mb-4">
               <div className="w-9 h-9 bg-sunset-copper rounded-lg flex items-center justify-center">
@@ -34,9 +34,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {[
                 { label: 'About the Initiative', href: '/about' },
-                { label: 'Programs & Services', href: '/programs' },
                 { label: 'Success Stories', href: '/showcase' },
-                { label: 'Analytics Dashboard', href: '/analytics' },
                 { label: 'Resources', href: '/resources' },
               ].map((link) => (
                 <li key={link.href}>
@@ -47,40 +45,6 @@ export default function Footer() {
                     <ArrowRight className="w-3 h-3 mr-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                     {link.label}
                   </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-serif font-semibold mb-4 text-white/90">Get Involved</h4>
-            <ul className="space-y-2.5">
-              {[
-                { label: 'For Businesses', href: '/get-involved#businesses' },
-                { label: 'For Residents', href: '/get-involved#residents' },
-                { label: 'For Partners', href: '/get-involved#partners' },
-                { label: 'Take Our Survey', href: 'https://forms.gle/SdQrmVQzKguJduGBA', external: true },
-              ].map((link) => (
-                <li key={link.label}>
-                  {link.external ? (
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-white/60 hover:text-sunset-copper transition-colors inline-flex items-center group"
-                    >
-                      <ArrowRight className="w-3 h-3 mr-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                      {link.label}
-                    </a>
-                  ) : (
-                    <Link
-                      to={link.href}
-                      className="text-sm text-white/60 hover:text-sunset-copper transition-colors inline-flex items-center group"
-                    >
-                      <ArrowRight className="w-3 h-3 mr-1.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                      {link.label}
-                    </Link>
-                  )}
                 </li>
               ))}
             </ul>

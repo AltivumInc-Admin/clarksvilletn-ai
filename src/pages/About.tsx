@@ -238,7 +238,7 @@ export default function About() {
             viewport={{ once: true }}
             className="text-center mt-10"
           >
-            <Button variant="outline" href="/get-involved#partners">
+            <Button variant="outline" href="mailto:info@altivum.ai?subject=Partnership%20Inquiry">
               Become a Partner
               <ArrowRight className="ml-2 w-4 h-4" />
             </Button>
@@ -249,10 +249,10 @@ export default function About() {
       <CTA
         title="Be Part of Clarksville's AI Future"
         description="Whether you're a business owner, educator, civic leader, or technology enthusiast, there's a role for you in this initiative."
-        primaryLabel="Get Involved"
-        primaryHref="/get-involved"
-        secondaryLabel="Explore Programs"
-        secondaryHref="/programs"
+        primaryLabel="Share Your Story"
+        primaryHref="https://forms.gle/SdQrmVQzKguJduGBA"
+        secondaryLabel="Explore Resources"
+        secondaryHref="/resources"
       />
     </>
   );

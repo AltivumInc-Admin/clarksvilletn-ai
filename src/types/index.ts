@@ -34,15 +34,6 @@ export interface Service {
   features: string[];
 }
 
-export interface Program {
-  id: string;
-  title: string;
-  description: string;
-  audience: string;
-  benefits: string[];
-  status: 'active' | 'coming-soon' | 'pilot';
-}
-
 export interface TimelineEvent {
   date: string;
   title: string;

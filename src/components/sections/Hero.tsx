@@ -54,8 +54,8 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-16">
-              <Button size="lg" href="/programs">
-                Explore Programs
+              <Button size="lg" href="/about">
+                Learn More
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
               <Button size="lg" variant="outline" href="/showcase" className="border-white/20 text-white hover:bg-white/10">
