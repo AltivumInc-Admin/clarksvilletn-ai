@@ -34,7 +34,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {[
                 { label: 'About the Initiative', href: '/about' },
-                { label: 'Success Stories', href: '/showcase' },
+                { label: 'AI-Ready Clarksville', href: '/ai-ready' },
                 { label: 'Resources', href: '/resources' },
               ].map((link) => (
                 <li key={link.href}>
