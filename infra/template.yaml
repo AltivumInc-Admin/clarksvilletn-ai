@@ -101,7 +101,7 @@ Resources:
           RequireLowercase: true
           RequireNumbers: true
           RequireUppercase: true
-          RequireSymbols: false
+          RequireSymbols: true
       Schema:
         - Name: email
           AttributeDataType: String
