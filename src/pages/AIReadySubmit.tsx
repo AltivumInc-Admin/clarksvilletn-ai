@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { Authenticator } from '@aws-amplify/ui-react';
+import { useEffect, useMemo, useState } from 'react';
+import { Authenticator, ThemeProvider, type Theme } from '@aws-amplify/ui-react';
 import type { AuthUser } from 'aws-amplify/auth';
 import '@aws-amplify/ui-react/styles.css';
 import { motion } from 'framer-motion';
-import { CheckCircle, Loader2, LogOut, Plus, Trash2, Upload, X } from 'lucide-react';
+import { Check, CheckCircle, Loader2, LogOut, Plus, Trash2, Upload, X } from 'lucide-react';
 import { ApiError, getMyProfile, putMyProfile } from '../lib/api';
 import type { Credential, Degree } from '../types';
 import Button from '../components/ui/Button';
@@ -34,6 +34,72 @@ const emptyDegree = (): Degree => ({
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
+const authTheme: Theme = {
+  name: 'clarksville',
+  tokens: {
+    colors: {
+      brand: {
+        primary: {
+          10: { value: '#eef2f7' },
+          20: { value: '#cfd9e6' },
+          40: { value: '#7a93b2' },
+          60: { value: '#3f5f85' },
+          80: { value: '#1e3a5f' },
+          90: { value: '#162d4a' },
+          100: { value: '#0f2239' },
+        },
+      },
+      font: {
+        interactive: { value: '{colors.brand.primary.80}' },
+      },
+      border: {
+        focus: { value: '{colors.brand.primary.80}' },
+      },
+    },
+    components: {
+      authenticator: {
+        router: {
+          borderColor: { value: '{colors.neutral.20}' },
+          boxShadow: { value: '0 10px 30px -15px rgba(30, 58, 95, 0.25)' },
+        },
+      },
+      tabs: {
+        item: {
+          _active: {
+            color: { value: '{colors.brand.primary.80}' },
+            borderColor: { value: '{colors.brand.primary.80}' },
+          },
+          _hover: {
+            color: { value: '{colors.brand.primary.90}' },
+          },
+          _focus: {
+            color: { value: '{colors.brand.primary.80}' },
+          },
+        },
+      },
+      button: {
+        primary: {
+          backgroundColor: { value: '{colors.brand.primary.80}' },
+          _hover: { backgroundColor: { value: '{colors.brand.primary.90}' } },
+          _focus: { backgroundColor: { value: '{colors.brand.primary.90}' } },
+          _active: { backgroundColor: { value: '{colors.brand.primary.100}' } },
+        },
+        link: {
+          color: { value: '{colors.brand.primary.80}' },
+          _hover: { color: { value: '{colors.brand.primary.90}' } },
+          _focus: { color: { value: '{colors.brand.primary.90}' } },
+        },
+      },
+      fieldcontrol: {
+        _focus: {
+          borderColor: { value: '{colors.brand.primary.80}' },
+          boxShadow: { value: '0 0 0 1px {colors.brand.primary.80}' },
+        },
+      },
+    },
+  },
+};
+
 export default function AIReadySubmit() {
   if (!cognitoConfigured) {
     return <ConfigurationMissing />;
@@ -42,14 +108,95 @@ export default function AIReadySubmit() {
     <section className="pt-28 md:pt-36 pb-16 md:pb-24 bg-cloud-white">
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-2xl mx-auto">
-          <Authenticator>
-            {({ signOut, user }) => (
-              <ProfileForm signOut={signOut ?? (() => undefined)} user={user} />
-            )}
-          </Authenticator>
+          <ThemeProvider theme={authTheme}>
+            <Authenticator
+              components={{
+                SignUp: {
+                  FormFields() {
+                    return (
+                      <>
+                        <Authenticator.SignUp.FormFields />
+                        <PasswordRequirements />
+                      </>
+                    );
+                  },
+                },
+              }}
+            >
+              {({ signOut, user }) => (
+                <ProfileForm signOut={signOut ?? (() => undefined)} user={user} />
+              )}
+            </Authenticator>
+          </ThemeProvider>
         </div>
       </div>
     </section>
+  );
+}
+
+function PasswordRequirements() {
+  const [password, setPassword] = useState('');
+  const [confirm, setConfirm] = useState('');
+
+  useEffect(() => {
+    const attach = () => {
+      const pw = document.querySelector<HTMLInputElement>('input[name="password"]');
+      const cp = document.querySelector<HTMLInputElement>('input[name="confirm_password"]');
+      if (!pw || !cp) return false;
+      const handlePw = (e: Event) => setPassword((e.target as HTMLInputElement).value);
+      const handleCp = (e: Event) => setConfirm((e.target as HTMLInputElement).value);
+      pw.addEventListener('input', handlePw);
+      cp.addEventListener('input', handleCp);
+      setPassword(pw.value);
+      setConfirm(cp.value);
+      cleanup = () => {
+        pw.removeEventListener('input', handlePw);
+        cp.removeEventListener('input', handleCp);
+      };
+      return true;
+    };
+    let cleanup: (() => void) | undefined;
+    if (!attach()) {
+      const raf = requestAnimationFrame(() => attach());
+      return () => {
+        cancelAnimationFrame(raf);
+        cleanup?.();
+      };
+    }
+    return () => cleanup?.();
+  }, []);
+
+  const checks = useMemo(
+    () => [
+      { label: 'At least 10 characters', pass: password.length >= 10 },
+      { label: 'Contains an uppercase letter', pass: /[A-Z]/.test(password) },
+      { label: 'Contains a lowercase letter', pass: /[a-z]/.test(password) },
+      { label: 'Contains a number', pass: /[0-9]/.test(password) },
+      {
+        label: 'Contains a symbol (e.g. ! @ # $ %)',
+        pass: /[\^$*.[\]{}()?"!@#%&/\\,><':;|_~`+=\-\s]/.test(password),
+      },
+      {
+        label: 'Passwords match',
+        pass: password.length > 0 && password === confirm,
+      },
+    ],
+    [password, confirm],
+  );
+
+  return (
+    <ul className="mt-1 mb-2 space-y-1 text-xs">
+      {checks.map((c) => (
+        <li key={c.label} className="flex items-center gap-2">
+          {c.pass ? (
+            <Check className="w-3.5 h-3.5 text-fort-green shrink-0" />
+          ) : (
+            <X className="w-3.5 h-3.5 text-red-500 shrink-0" />
+          )}
+          <span className={c.pass ? 'text-fort-green' : 'text-historic-stone'}>{c.label}</span>
+        </li>
+      ))}
+    </ul>
   );
 }
 
