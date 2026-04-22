@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Brain } from 'lucide-react';
+import { Menu, X, Brain, UserCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { NavLink } from '../../types';
 
@@ -76,6 +76,13 @@ export default function Header() {
                 </Link>
               );
             })}
+            <Link
+              to="/ai-ready/submit"
+              className="ml-2 inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-river-blue border border-river-blue/15 rounded-lg hover:bg-river-blue/5 hover:border-river-blue/30 transition-colors"
+            >
+              <UserCircle2 className="w-4 h-4" />
+              Your Profile
+            </Link>
           </div>
 
           <button
@@ -107,7 +114,7 @@ export default function Header() {
                 >
                   <Link
                     to={link.href}
-                    className={`block py-3 text-sm font-medium border-b border-river-blue/5 last:border-b-0 transition-colors ${
+                    className={`block py-3 text-sm font-medium border-b border-river-blue/5 transition-colors ${
                       location.pathname === link.href
                         ? 'text-sunset-copper'
                         : 'text-river-blue hover:text-sunset-copper'
@@ -117,6 +124,19 @@ export default function Header() {
                   </Link>
                 </motion.div>
               ))}
+              <motion.div
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: navLinks.length * 0.05 }}
+              >
+                <Link
+                  to="/ai-ready/submit"
+                  className="flex items-center gap-2 py-3 text-sm font-medium text-river-blue hover:text-sunset-copper transition-colors"
+                >
+                  <UserCircle2 className="w-4 h-4" />
+                  Your Profile
+                </Link>
+              </motion.div>
             </div>
           </motion.div>
         )}

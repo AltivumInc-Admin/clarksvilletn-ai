@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@aws-amplify/ui-react": "^6.15.3",
+    "aws-amplify": "^6.16.4",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.5",
     "lucide-react": "^0.525.0",
