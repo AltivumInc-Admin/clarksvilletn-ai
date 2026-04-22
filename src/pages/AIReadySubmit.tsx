@@ -121,6 +121,21 @@ export default function AIReadySubmit() {
                     );
                   },
                 },
+                ForceNewPassword: {
+                  FormFields() {
+                    return (
+                      <>
+                        <Authenticator.ForceNewPassword.FormFields />
+                        <PasswordRequirements />
+                      </>
+                    );
+                  },
+                },
+                ConfirmResetPassword: {
+                  Footer() {
+                    return <PasswordRequirements />;
+                  },
+                },
               }}
             >
               {({ signOut, user }) => (
