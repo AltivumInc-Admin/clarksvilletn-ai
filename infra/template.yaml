@@ -63,6 +63,8 @@ Resources:
           AttributeType: S
         - AttributeName: createdAt
           AttributeType: S
+        - AttributeName: userSub
+          AttributeType: S
       KeySchema:
         - AttributeName: profileId
           KeyType: HASH
@@ -75,8 +77,64 @@ Resources:
               KeyType: RANGE
           Projection:
             ProjectionType: ALL
+        - IndexName: userSub-index
+          KeySchema:
+            - AttributeName: userSub
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
       PointInTimeRecoverySpecification:
         PointInTimeRecoveryEnabled: true
+
+  UserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: ai-ready-clarksville-users
+      UsernameAttributes:
+        - email
+      AutoVerifiedAttributes:
+        - email
+      MfaConfiguration: 'OFF'
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 10
+          RequireLowercase: true
+          RequireNumbers: true
+          RequireUppercase: true
+          RequireSymbols: false
+      Schema:
+        - Name: email
+          AttributeDataType: String
+          Required: true
+          Mutable: true
+      AccountRecoverySetting:
+        RecoveryMechanisms:
+          - Name: verified_email
+            Priority: 1
+      EmailConfiguration:
+        EmailSendingAccount: COGNITO_DEFAULT
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: false
+
+  UserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      UserPoolId: !Ref UserPool
+      ClientName: ai-ready-clarksville-web
+      GenerateSecret: false
+      ExplicitAuthFlows:
+        - ALLOW_USER_SRP_AUTH
+        - ALLOW_REFRESH_TOKEN_AUTH
+      PreventUserExistenceErrors: ENABLED
+      SupportedIdentityProviders:
+        - COGNITO
+      AccessTokenValidity: 60
+      IdTokenValidity: 60
+      RefreshTokenValidity: 30
+      TokenValidityUnits:
+        AccessToken: minutes
+        IdToken: minutes
+        RefreshToken: days
 
   MediaBucket:
     Type: AWS::S3::Bucket
@@ -122,12 +180,20 @@ Resources:
         AllowOrigins:
           - !Ref SiteOrigin
           - !Ref SiteOriginWww
-        AllowMethods: [GET, POST, OPTIONS]
-        AllowHeaders: [content-type]
+        AllowMethods: [GET, POST, PUT, OPTIONS]
+        AllowHeaders: [content-type, authorization]
         MaxAge: 3600
       DefaultRouteSettings:
         ThrottlingBurstLimit: 25
         ThrottlingRateLimit: 10
+      Auth:
+        Authorizers:
+          CognitoAuth:
+            IdentitySource: $request.header.Authorization
+            JwtConfiguration:
+              issuer: !Sub 'https://cognito-idp.${AWS::Region}.amazonaws.com/${UserPool}'
+              audience:
+                - !Ref UserPoolClient
 
   SubmitProfileFunction:
     Type: AWS::Serverless::Function
@@ -183,6 +249,38 @@ Resources:
             Path: /admin/profiles/{profileId}/action
             Method: GET
 
+  MeProfileFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/me-profile/
+      Handler: index.handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ProfilesTable
+        - S3WritePolicy:
+            BucketName: !Ref MediaBucket
+        - Statement:
+            - Effect: Allow
+              Action: ses:SendEmail
+              Resource: '*'
+      Events:
+        GetMe:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /me/profile
+            Method: GET
+            Auth:
+              Authorizer: CognitoAuth
+        PutMe:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /me/profile
+            Method: PUT
+            Auth:
+              Authorizer: CognitoAuth
+
 Outputs:
   ApiBaseUrl:
     Description: Base URL once the custom domain DNS is pointed at the API Gateway target.
@@ -197,3 +295,12 @@ Outputs:
     Value: !Ref MediaBucket
   ProfilesTableName:
     Value: !Ref ProfilesTable
+  UserPoolId:
+    Description: Cognito User Pool id (frontend VITE_COGNITO_USER_POOL_ID).
+    Value: !Ref UserPool
+  UserPoolClientId:
+    Description: Cognito App Client id (frontend VITE_COGNITO_USER_POOL_CLIENT_ID).
+    Value: !Ref UserPoolClient
+  UserPoolRegion:
+    Description: Region the User Pool lives in (frontend VITE_COGNITO_REGION).
+    Value: !Ref AWS::Region
