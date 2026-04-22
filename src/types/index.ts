@@ -1,25 +1,3 @@
-export interface Company {
-  id: string;
-  name: string;
-  description: string;
-  industry: string;
-  technologies: string[];
-  logo?: string;
-  website?: string;
-  featured: boolean;
-  caseStudy?: {
-    challenge: string;
-    solution: string;
-    results: string[];
-    metrics?: { label: string; value: string }[];
-    testimonial?: {
-      text: string;
-      author: string;
-      title: string;
-    };
-  };
-}
-
 export interface NavLink {
   label: string;
   href: string;
@@ -50,4 +28,46 @@ export interface Stat {
   value: string;
   label: string;
   description?: string;
+}
+
+export interface Credential {
+  issuer: string;
+  title: string;
+  verifyUrl: string;
+  badgeImageUrl?: string;
+  issuedDate?: string;
+}
+
+export interface Degree {
+  degree: string;
+  institution: string;
+  year: number;
+  focus?: string;
+}
+
+export interface Profile {
+  profileId: string;
+  name: string;
+  city?: string;
+  headline?: string;
+  bio?: string;
+  linkedinUrl?: string;
+  headshotUrl?: string;
+  credentials: Credential[];
+  degrees: Degree[];
+  approvedAt?: string;
+}
+
+export interface ProfileSubmission {
+  name: string;
+  email: string;
+  phone?: string;
+  city?: string;
+  headline?: string;
+  bio?: string;
+  linkedinUrl?: string;
+  headshotBase64?: string;
+  credentials: Credential[];
+  degrees: Degree[];
+  turnstileToken: string;
 }

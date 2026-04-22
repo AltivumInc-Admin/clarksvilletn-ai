@@ -248,9 +248,9 @@ export default function About() {
 
       <CTA
         title="Be Part of Clarksville's AI Future"
-        description="Whether you're a business owner, educator, civic leader, or technology enthusiast, there's a role for you in this initiative."
-        primaryLabel="Share Your Story"
-        primaryHref="https://forms.gle/SdQrmVQzKguJduGBA"
+        description="Whether you're a business owner, educator, civic leader, or student, there's a role for you in this initiative."
+        primaryLabel="Add Your Profile"
+        primaryHref="/ai-ready/submit"
         secondaryLabel="Explore Resources"
         secondaryHref="/resources"
       />

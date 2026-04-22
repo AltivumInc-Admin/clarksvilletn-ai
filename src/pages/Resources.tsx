@@ -233,11 +233,11 @@ export default function Resources() {
 
       <CTA
         title="Ready to Start Learning?"
-        description="Explore our resources and take the first step toward digital transformation."
-        primaryLabel="Share Your Story"
-        primaryHref="https://forms.gle/SdQrmVQzKguJduGBA"
-        secondaryLabel="View Success Stories"
-        secondaryHref="/showcase"
+        description="Explore our resources, then put your credentials on the map."
+        primaryLabel="Add Your Profile"
+        primaryHref="/ai-ready/submit"
+        secondaryLabel="See AI-Ready Clarksville"
+        secondaryHref="/ai-ready"
       />
     </>
   );

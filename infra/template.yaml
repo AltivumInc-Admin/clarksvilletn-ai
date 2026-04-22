@@ -1,0 +1,199 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AI-Ready Clarksville - profile directory backend
+
+Parameters:
+  ApiDomainName:
+    Type: String
+    Default: api.clarksvilletn.ai
+  ApiCertificateArn:
+    Type: String
+    Description: ACM cert ARN for the API custom domain (must be in us-east-1 for edge, regional works for regional API).
+  SiteOrigin:
+    Type: String
+    Default: https://clarksvilletn.ai
+  SiteOriginWww:
+    Type: String
+    Default: https://www.clarksvilletn.ai
+  TurnstileSecretKey:
+    Type: String
+    NoEcho: true
+    Description: Cloudflare Turnstile secret key (paired with the public site key in the frontend).
+  AdminEmail:
+    Type: String
+    Default: admin@altivum.ai
+    Description: SES-verified address that receives moderation notifications.
+  AdminActionSecret:
+    Type: String
+    NoEcho: true
+    Description: Secret used to HMAC-sign approve/reject links in moderation emails.
+  MediaBucketName:
+    Type: String
+    Default: ai-ready-clarksville-media
+
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Timeout: 15
+    MemorySize: 512
+    Architectures:
+      - arm64
+    Environment:
+      Variables:
+        PROFILES_TABLE: !Ref ProfilesTable
+        MEDIA_BUCKET: !Ref MediaBucket
+        MEDIA_BASE_URL: !Sub 'https://${MediaBucket.RegionalDomainName}'
+        ADMIN_EMAIL: !Ref AdminEmail
+        ADMIN_ACTION_SECRET: !Ref AdminActionSecret
+        TURNSTILE_SECRET: !Ref TurnstileSecretKey
+        SITE_ORIGIN: !Ref SiteOrigin
+        SITE_ORIGIN_WWW: !Ref SiteOriginWww
+        API_DOMAIN: !Ref ApiDomainName
+
+Resources:
+  ProfilesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ai-ready-profiles
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: profileId
+          AttributeType: S
+        - AttributeName: status
+          AttributeType: S
+        - AttributeName: createdAt
+          AttributeType: S
+      KeySchema:
+        - AttributeName: profileId
+          KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: status-createdAt-index
+          KeySchema:
+            - AttributeName: status
+              KeyType: HASH
+            - AttributeName: createdAt
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+
+  MediaBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref MediaBucketName
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: false
+        RestrictPublicBuckets: false
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+      CorsConfiguration:
+        CorsRules:
+          - AllowedOrigins:
+              - !Ref SiteOrigin
+              - !Ref SiteOriginWww
+            AllowedMethods: [GET]
+            AllowedHeaders: ['*']
+            MaxAge: 3600
+
+  MediaBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MediaBucket
+      PolicyDocument:
+        Statement:
+          - Sid: PublicReadHeadshotsAndBadges
+            Effect: Allow
+            Principal: '*'
+            Action: s3:GetObject
+            Resource: !Sub '${MediaBucket.Arn}/*'
+
+  HttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      Domain:
+        DomainName: !Ref ApiDomainName
+        CertificateArn: !Ref ApiCertificateArn
+        EndpointConfiguration: REGIONAL
+      CorsConfiguration:
+        AllowOrigins:
+          - !Ref SiteOrigin
+          - !Ref SiteOriginWww
+        AllowMethods: [GET, POST, OPTIONS]
+        AllowHeaders: [content-type]
+        MaxAge: 3600
+      DefaultRouteSettings:
+        ThrottlingBurstLimit: 25
+        ThrottlingRateLimit: 10
+
+  SubmitProfileFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/submit-profile/
+      Handler: index.handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ProfilesTable
+        - S3WritePolicy:
+            BucketName: !Ref MediaBucket
+        - Statement:
+            - Effect: Allow
+              Action: ses:SendEmail
+              Resource: '*'
+      Events:
+        Submit:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /profiles
+            Method: POST
+
+  ListProfilesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/list-profiles/
+      Handler: index.handler
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref ProfilesTable
+      Events:
+        List:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /profiles
+            Method: GET
+
+  AdminActionFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/admin-action/
+      Handler: index.handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ProfilesTable
+      Events:
+        Action:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /admin/profiles/{profileId}/action
+            Method: GET
+
+Outputs:
+  ApiBaseUrl:
+    Description: Base URL once the custom domain DNS is pointed at the API Gateway target.
+    Value: !Sub 'https://${ApiDomainName}'
+  ApiGatewayEndpoint:
+    Description: Raw API Gateway endpoint (useful for initial smoke tests before DNS propagates).
+    Value: !Sub 'https://${HttpApi}.execute-api.${AWS::Region}.amazonaws.com'
+  ApiCustomDomainLookup:
+    Description: After deploy, run `aws apigatewayv2 get-domain-name --domain-name <ApiDomainName>` to get the regional CNAME target for DNS.
+    Value: !Sub 'aws apigatewayv2 get-domain-name --domain-name ${ApiDomainName}'
+  MediaBucketName:
+    Value: !Ref MediaBucket
+  ProfilesTableName:
+    Value: !Ref ProfilesTable
