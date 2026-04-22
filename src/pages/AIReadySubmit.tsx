@@ -20,8 +20,20 @@ declare global {
 const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY ?? '';
 const MAX_CREDENTIALS = 12;
 const MAX_HEADSHOT_BYTES = 2 * 1024 * 1024;
+const MAX_BADGE_BYTES = 200 * 1024;
 
-const emptyCredential = (): Credential => ({ issuer: '', title: '', verifyUrl: '', badgeImageUrl: '', issuedDate: '' });
+type BadgeMode = 'url' | 'upload';
+type CredentialDraft = Credential & { badgeMode?: BadgeMode; badgeError?: string };
+
+const emptyCredential = (): CredentialDraft => ({
+  issuer: '',
+  title: '',
+  verifyUrl: '',
+  badgeImageUrl: '',
+  badgeImageBase64: '',
+  badgeMode: 'upload',
+  issuedDate: '',
+});
 const emptyDegree = (): Degree => ({ degree: '', institution: '', year: new Date().getFullYear(), focus: '' });
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
@@ -36,7 +48,7 @@ export default function AIReadySubmit() {
   const [linkedinUrl, setLinkedinUrl] = useState('');
   const [headshotBase64, setHeadshotBase64] = useState<string | null>(null);
   const [headshotError, setHeadshotError] = useState<string | null>(null);
-  const [credentials, setCredentials] = useState<Credential[]>([emptyCredential()]);
+  const [credentials, setCredentials] = useState<CredentialDraft[]>([emptyCredential()]);
   const [degrees, setDegrees] = useState<Degree[]>([]);
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [status, setStatus] = useState<Status>('idle');
@@ -93,11 +105,30 @@ export default function AIReadySubmit() {
     reader.readAsDataURL(file);
   };
 
-  const updateCredential = (index: number, patch: Partial<Credential>) => {
+  const updateCredential = (index: number, patch: Partial<CredentialDraft>) => {
     setCredentials((prev) => prev.map((c, i) => (i === index ? { ...c, ...patch } : c)));
   };
   const addCredential = () => setCredentials((prev) => (prev.length < MAX_CREDENTIALS ? [...prev, emptyCredential()] : prev));
   const removeCredential = (index: number) => setCredentials((prev) => prev.filter((_, i) => i !== index));
+
+  const onBadgeFileChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      updateCredential(index, { badgeError: 'File must be an image.' });
+      return;
+    }
+    if (file.size > MAX_BADGE_BYTES) {
+      updateCredential(index, { badgeError: 'Badge image must be under 200KB.' });
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = typeof reader.result === 'string' ? reader.result : '';
+      updateCredential(index, { badgeImageBase64: result, badgeImageUrl: '', badgeError: undefined });
+    };
+    reader.readAsDataURL(file);
+  };
 
   const updateDegree = (index: number, patch: Partial<Degree>) => {
     setDegrees((prev) => prev.map((d, i) => (i === index ? { ...d, ...patch } : d)));
@@ -115,8 +146,15 @@ export default function AIReadySubmit() {
     }
 
     const cleanCredentials = credentials
-      .map((c) => ({ ...c, issuer: c.issuer.trim(), title: c.title.trim(), verifyUrl: c.verifyUrl.trim() }))
-      .filter((c) => c.issuer && c.title && c.verifyUrl);
+      .filter((c) => c.issuer.trim() && c.title.trim() && c.verifyUrl.trim())
+      .map<Credential>((c) => ({
+        issuer: c.issuer.trim(),
+        title: c.title.trim(),
+        verifyUrl: c.verifyUrl.trim(),
+        ...(c.badgeImageBase64 ? { badgeImageBase64: c.badgeImageBase64 } : {}),
+        ...(c.badgeImageUrl && c.badgeImageUrl.trim() ? { badgeImageUrl: c.badgeImageUrl.trim() } : {}),
+        ...(c.issuedDate && c.issuedDate.trim() ? { issuedDate: c.issuedDate.trim() } : {}),
+      }));
 
     const cleanDegrees = degrees
       .map((d) => ({ ...d, degree: d.degree.trim(), institution: d.institution.trim(), focus: d.focus?.trim() }))
@@ -256,7 +294,7 @@ export default function AIReadySubmit() {
                 )}
               </div>
               <p className="text-xs text-historic-stone mb-4">
-                Each credential needs a verify URL (Credly, Anthropic Academy, Coursera certificate, etc). Up to {MAX_CREDENTIALS}.
+                Each credential needs a verify URL (Credly, Anthropic Academy, Coursera certificate, etc.). Upload the badge image or paste a direct URL. Up to {MAX_CREDENTIALS}.
               </p>
               <div className="space-y-4">
                 {credentials.map((cred, i) => (
@@ -280,14 +318,77 @@ export default function AIReadySubmit() {
                     <Field label="Verify URL" small hint="Required for credential to be accepted.">
                       <input type="url" value={cred.verifyUrl} onChange={(e) => updateCredential(i, { verifyUrl: e.target.value })} placeholder="https://credly.com/badges/..." className={inputClass} />
                     </Field>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      <Field label="Badge image URL" small hint="Optional — Credly badge image URL.">
-                        <input type="url" value={cred.badgeImageUrl ?? ''} onChange={(e) => updateCredential(i, { badgeImageUrl: e.target.value })} placeholder="https://images.credly.com/..." className={inputClass} />
-                      </Field>
-                      <Field label="Issued" small hint="Optional, e.g., 2025-06.">
-                        <input value={cred.issuedDate ?? ''} onChange={(e) => updateCredential(i, { issuedDate: e.target.value })} placeholder="2025-06" className={inputClass} />
-                      </Field>
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-medium text-river-blue">Badge image</span>
+                        <div className="inline-flex rounded-md border border-river-blue/15 overflow-hidden">
+                          <button
+                            type="button"
+                            onClick={() => updateCredential(i, { badgeMode: 'upload' })}
+                            className={`px-2.5 py-1 text-[11px] font-medium transition-colors ${
+                              (cred.badgeMode ?? 'upload') === 'upload'
+                                ? 'bg-river-blue text-white'
+                                : 'bg-white text-river-blue hover:bg-river-blue/5'
+                            }`}
+                          >
+                            Upload
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => updateCredential(i, { badgeMode: 'url' })}
+                            className={`px-2.5 py-1 text-[11px] font-medium border-l border-river-blue/15 transition-colors ${
+                              cred.badgeMode === 'url'
+                                ? 'bg-river-blue text-white'
+                                : 'bg-white text-river-blue hover:bg-river-blue/5'
+                            }`}
+                          >
+                            Image URL
+                          </button>
+                        </div>
+                      </div>
+                      {(cred.badgeMode ?? 'upload') === 'upload' ? (
+                        <div className="flex items-center gap-3">
+                          {cred.badgeImageBase64 ? (
+                            <div className="relative">
+                              <img src={cred.badgeImageBase64} alt="Badge preview" className="w-14 h-14 rounded-md object-contain border border-river-blue/10 bg-white" />
+                              <button
+                                type="button"
+                                onClick={() => updateCredential(i, { badgeImageBase64: '', badgeError: undefined })}
+                                className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-white border border-river-blue/20 text-historic-stone hover:text-river-blue shadow-elevation-1 flex items-center justify-center"
+                                aria-label="Remove badge image"
+                              >
+                                <X className="w-2.5 h-2.5" />
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="w-14 h-14 rounded-md border-2 border-dashed border-river-blue/20 flex items-center justify-center text-river-blue/40">
+                              <Upload className="w-5 h-5" />
+                            </div>
+                          )}
+                          <label className="inline-flex items-center px-3 py-1.5 bg-river-blue/5 hover:bg-river-blue/10 text-river-blue text-xs font-medium rounded-md cursor-pointer transition-colors">
+                            <input type="file" accept="image/*" onChange={(e) => onBadgeFileChange(i, e)} className="hidden" />
+                            {cred.badgeImageBase64 ? 'Replace image' : 'Upload badge PNG'}
+                          </label>
+                        </div>
+                      ) : (
+                        <input
+                          type="url"
+                          value={cred.badgeImageUrl ?? ''}
+                          onChange={(e) => updateCredential(i, { badgeImageUrl: e.target.value, badgeImageBase64: '' })}
+                          placeholder="https://images.credly.com/..."
+                          className={inputClass}
+                        />
+                      )}
+                      {cred.badgeError && <p className="text-[11px] text-red-600 mt-1.5">{cred.badgeError}</p>}
+                      <p className="text-[11px] text-historic-stone/70 mt-1.5">
+                        {(cred.badgeMode ?? 'upload') === 'upload'
+                          ? 'PNG or JPG, under 200KB. Download the badge from Credly and upload here.'
+                          : 'Direct image URL. Leave blank if you only have a verify link.'}
+                      </p>
                     </div>
+                    <Field label="Issued" small hint="Optional, e.g., 2025-06.">
+                      <input value={cred.issuedDate ?? ''} onChange={(e) => updateCredential(i, { issuedDate: e.target.value })} placeholder="2025-06" className={inputClass} />
+                    </Field>
                   </div>
                 ))}
               </div>

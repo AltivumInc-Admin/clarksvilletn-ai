@@ -35,6 +35,7 @@ export interface Credential {
   title: string;
   verifyUrl: string;
   badgeImageUrl?: string;
+  badgeImageBase64?: string;
   issuedDate?: string;
 }
 
