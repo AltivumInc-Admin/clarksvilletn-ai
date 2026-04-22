@@ -37,6 +37,7 @@ function signAction(profileId, action, secret) {
 }
 
 const MAX_HEADSHOT_BYTES = 2 * 1024 * 1024;
+const MAX_BADGE_BYTES = 200 * 1024;
 const MAX_CREDENTIALS = 12;
 const MAX_DEGREES = 6;
 const MAX_BIO = 300;
@@ -115,11 +116,13 @@ function validatePayload(raw) {
     if (badgeImageUrl && !isHttpUrl(badgeImageUrl)) {
       return { error: `Credential "${title}" has an invalid badge image URL.` };
     }
+    const badgeImageBase64 = typeof c?.badgeImageBase64 === 'string' && c.badgeImageBase64 ? c.badgeImageBase64 : undefined;
     credentials.push({
       issuer,
       title,
       verifyUrl,
       ...(badgeImageUrl ? { badgeImageUrl } : {}),
+      ...(badgeImageBase64 ? { badgeImageBase64 } : {}),
       ...(clean(c?.issuedDate, 32) ? { issuedDate: clean(c?.issuedDate, 32) } : {}),
     });
   }
@@ -179,6 +182,32 @@ async function uploadHeadshot(profileId, dataUri) {
   }
   const ext = parsed.contentType.split('/')[1];
   const key = `headshots/${profileId}.${ext}`;
+  await s3.send(
+    new PutObjectCommand({
+      Bucket: process.env.MEDIA_BUCKET,
+      Key: key,
+      Body: parsed.buffer,
+      ContentType: parsed.contentType,
+      CacheControl: 'public, max-age=86400',
+    }),
+  );
+  return `${process.env.MEDIA_BASE_URL}/${key}`;
+}
+
+async function uploadBadge(profileId, index, dataUri) {
+  const parsed = parseDataUri(dataUri);
+  if (!parsed) {
+    const err = new Error(`Credential ${index + 1} badge must be a JPEG, PNG, WebP, or GIF image.`);
+    err.userFacing = true;
+    throw err;
+  }
+  if (parsed.buffer.byteLength > MAX_BADGE_BYTES) {
+    const err = new Error(`Credential ${index + 1} badge exceeds 200KB.`);
+    err.userFacing = true;
+    throw err;
+  }
+  const ext = parsed.contentType.split('/')[1];
+  const key = `badges/${profileId}/${index}.${ext}`;
   await s3.send(
     new PutObjectCommand({
       Bucket: process.env.MEDIA_BUCKET,
@@ -263,8 +292,19 @@ export const handler = async (event) => {
     const now = new Date().toISOString();
 
     let headshotUrl;
+    let storedCredentials;
     try {
       headshotUrl = await uploadHeadshot(profileId, payload.headshotBase64);
+      storedCredentials = await Promise.all(
+        payload.credentials.map(async (c, i) => {
+          const { badgeImageBase64, ...rest } = c;
+          if (badgeImageBase64) {
+            const uploadedUrl = await uploadBadge(profileId, i, badgeImageBase64);
+            return { ...rest, badgeImageUrl: uploadedUrl };
+          }
+          return rest;
+        }),
+      );
     } catch (err) {
       if (err.userFacing) return badRequest(err.message);
       throw err;
@@ -282,7 +322,7 @@ export const handler = async (event) => {
       bio: payload.bio,
       linkedinUrl: payload.linkedinUrl,
       headshotUrl,
-      credentials: payload.credentials,
+      credentials: storedCredentials,
       degrees: payload.degrees,
       sourceIp,
     };
