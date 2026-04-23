@@ -92,7 +92,7 @@ export default function AIReady() {
               <p className="text-historic-stone mb-4">
                 We couldn't load profiles right now.
               </p>
-              <p className="text-xs text-historic-stone/60">{error}</p>
+              <p className="text-xs text-historic-stone">{error}</p>
             </div>
           )}
 

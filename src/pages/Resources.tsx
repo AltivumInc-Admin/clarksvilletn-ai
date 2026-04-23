@@ -109,11 +109,11 @@ export default function Resources() {
                   <div className="w-12 h-12 bg-river-blue/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-river-blue/15 transition-colors">
                     <ResourceIcon className="w-6 h-6 text-river-blue" />
                   </div>
-                  <h3 className="text-xl font-serif font-bold text-river-blue mb-3">{resource.title}</h3>
+                  <h2 className="text-xl font-serif font-bold text-river-blue mb-3">{resource.title}</h2>
                   <p className="text-sm text-historic-stone leading-relaxed flex-grow mb-5">
                     {resource.description}
                   </p>
-                  <div className="inline-flex items-center gap-1.5 text-sm font-medium text-sunset-copper group-hover:gap-2.5 transition-all">
+                  <div className="inline-flex items-center gap-1.5 text-sm font-medium text-sunset-copper-700 group-hover:gap-2.5 transition-all">
                     {resource.actionLabel}
                     <ActionIcon className="w-4 h-4" />
                   </div>

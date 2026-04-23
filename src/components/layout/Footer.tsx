@@ -30,7 +30,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-serif font-semibold mb-4 text-white/90">Explore</h4>
+            <h3 className="font-serif font-semibold mb-4 text-white/90">Explore</h3>
             <ul className="space-y-2.5">
               {[
                 { label: 'About the Initiative', href: '/about' },
@@ -51,7 +51,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-serif font-semibold mb-4 text-white/90">Contact</h4>
+            <h3 className="font-serif font-semibold mb-4 text-white/90">Contact</h3>
             <ul className="space-y-3">
               <li>
                 <a href="mailto:info@altivum.ai" className="text-sm text-white/60 hover:text-sunset-copper transition-colors flex items-center space-x-2">
