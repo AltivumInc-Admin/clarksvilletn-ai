@@ -10,8 +10,17 @@ import Button from '../components/ui/Button';
 import ProfileCard from '../components/cards/ProfileCard';
 import { listProfiles } from '../lib/api';
 import type { Profile } from '../types';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
+import { canonicalUrl } from '../lib/seo';
 
 export default function Home() {
+  useDocumentMeta({
+    title: "ClarksvilleTN.AI — Clarksville's AI & Cloud Initiative",
+    description:
+      'A civic tech initiative connecting Clarksville businesses, residents, and institutions with AI and cloud technology.',
+    canonical: canonicalUrl('/'),
+  });
+
   const [featuredProfiles, setFeaturedProfiles] = useState<Profile[]>([]);
   const [profileCount, setProfileCount] = useState<number | null>(null);
 

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /ai-ready/submit
+
+Sitemap: https://clarksvilletn.ai/sitemap.xml

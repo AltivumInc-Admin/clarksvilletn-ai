@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,8 @@ import CTA from '../components/sections/CTA';
 import ProfileCard from '../components/cards/ProfileCard';
 import { listProfiles } from '../lib/api';
 import type { Profile } from '../types';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
+import { buildDirectoryJsonLd, canonicalUrl } from '../lib/seo';
 
 type LoadState = 'loading' | 'ready' | 'error';
 
@@ -14,6 +16,19 @@ export default function AIReady() {
   const [state, setState] = useState<LoadState>('loading');
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [error, setError] = useState<string | null>(null);
+
+  const jsonLd = useMemo(
+    () => (profiles.length > 0 ? buildDirectoryJsonLd(profiles) : undefined),
+    [profiles],
+  );
+
+  useDocumentMeta({
+    title: 'AI-Ready Clarksville Directory',
+    description:
+      'A verified directory of Clarksville residents, professionals, and students with AI, cloud, and technology credentials.',
+    canonical: canonicalUrl('/ai-ready'),
+    jsonLd,
+  });
 
   useEffect(() => {
     let cancelled = false;
