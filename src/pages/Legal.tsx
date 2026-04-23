@@ -47,7 +47,7 @@ export default function Legal() {
                   <strong className="text-river-blue">ClarksvilleTN.ai</strong> is an independently operated civic technology platform built and maintained by <strong className="text-river-blue">Altivum Inc.</strong>, a veteran-founded company based in Clarksville, Tennessee. This platform is <strong>not affiliated with</strong>, <strong>endorsed by</strong>, or <strong>representative of</strong> any official Clarksville city agency, department, or government entity.
                 </p>
                 <p>
-                  The use of the <code className="bg-tech-silver px-1.5 py-0.5 rounded text-xs">.ai</code> domain reflects a focus on artificial intelligence&mdash;not governmental designation. While the site may reference public data, civic initiatives, or municipal needs, it remains a <strong>privately owned and operated resource</strong> with no formal municipal authority.
+                  The use of the <code className="bg-tech-silver text-river-blue px-1.5 py-0.5 rounded text-xs">.ai</code> domain reflects a focus on artificial intelligence&mdash;not governmental designation. While the site may reference public data, civic initiatives, or municipal needs, it remains a <strong>privately owned and operated resource</strong> with no formal municipal authority.
                 </p>
               </div>
 
@@ -135,7 +135,7 @@ export default function Legal() {
                 </p>
                 <p className="mt-2">
                   <strong className="text-river-blue">Altivum Inc.</strong><br />
-                  <a href="mailto:legal@altivum.ai" className="text-sunset-copper hover:text-sunset-copper-600 transition-colors">legal@altivum.ai</a>
+                  <a href="mailto:legal@altivum.ai" className="text-sunset-copper-700 hover:text-sunset-copper-800 transition-colors">legal@altivum.ai</a>
                 </p>
               </div>
 

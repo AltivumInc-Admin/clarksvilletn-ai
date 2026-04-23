@@ -14,6 +14,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', href, external, target, rel, children, ...props }, ref) => {
+    const ariaLabel = props['aria-label'];
     const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-[0.98]';
 
     const variants = {
@@ -39,13 +40,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             target={target || "_blank"}
             rel={rel || "noopener noreferrer"}
             className={classes}
+            aria-label={ariaLabel}
           >
             {children}
           </a>
         );
       }
       return (
-        <Link to={href} className={classes}>
+        <Link to={href} className={classes} aria-label={ariaLabel}>
           {children}
         </Link>
       );

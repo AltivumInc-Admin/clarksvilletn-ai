@@ -52,7 +52,7 @@ export default function About() {
                 <Target className="w-6 h-6 text-sunset-copper" />
               </div>
               <h2 className="text-2xl md:text-3xl font-serif font-bold mb-4">Our Mission</h2>
-              <p className="text-white/80 leading-relaxed">
+              <p className="text-white leading-relaxed">
                 To empower every Clarksville business, institution, and resident with accessible AI and
                 cloud technology, creating a thriving digital economy that preserves the community's
                 values while driving innovation and growth.
@@ -64,13 +64,13 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
-              className="bg-sunset-copper rounded-2xl p-8 md:p-10 text-white"
+              className="bg-sunset-copper-600 rounded-2xl p-8 md:p-10 text-white"
             >
               <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-6">
                 <Eye className="w-6 h-6 text-white" />
               </div>
               <h2 className="text-2xl md:text-3xl font-serif font-bold mb-4">Our Vision</h2>
-              <p className="text-white/80 leading-relaxed">
+              <p className="text-white leading-relaxed">
                 By 2030, Clarksville will be recognized as one of America's top mid-size cities for
                 AI readiness, where technology serves every sector of the community and creates
                 opportunity for all.

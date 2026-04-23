@@ -44,9 +44,9 @@ export default function Header() {
             </div>
             <div>
               <span className="text-lg font-serif font-bold text-river-blue tracking-tight">
-                ClarksvilleTN<span className="text-sunset-copper">.AI</span>
+                ClarksvilleTN<span className="text-sunset-copper-700">.AI</span>
               </span>
-              <p className="text-[10px] text-historic-stone leading-none -mt-0.5 hidden sm:block">
+              <p className="text-[10px] text-river-blue-700 leading-none -mt-0.5 hidden sm:block">
                 Powered by Altivum
               </p>
             </div>
@@ -61,9 +61,10 @@ export default function Header() {
                   to={link.href}
                   className={`relative px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                     isActive
-                      ? 'text-sunset-copper'
-                      : 'text-river-blue/80 hover:text-river-blue hover:bg-river-blue/5'
+                      ? 'text-sunset-copper-700'
+                      : 'text-river-blue hover:bg-river-blue/5'
                   }`}
+                  aria-current={isActive ? 'page' : undefined}
                 >
                   {link.label}
                   {isActive && (
@@ -116,9 +117,10 @@ export default function Header() {
                     to={link.href}
                     className={`block py-3 text-sm font-medium border-b border-river-blue/5 transition-colors ${
                       location.pathname === link.href
-                        ? 'text-sunset-copper'
-                        : 'text-river-blue hover:text-sunset-copper'
+                        ? 'text-sunset-copper-700'
+                        : 'text-river-blue hover:text-sunset-copper-700'
                     }`}
+                    aria-current={location.pathname === link.href ? 'page' : undefined}
                   >
                     {link.label}
                   </Link>
