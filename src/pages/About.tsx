@@ -3,8 +3,17 @@ import { Target, Eye, Award, Users, ArrowRight } from 'lucide-react';
 import { timeline, partners } from '../data/timeline';
 import Button from '../components/ui/Button';
 import CTA from '../components/sections/CTA';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
+import { canonicalUrl } from '../lib/seo';
 
 export default function About() {
+  useDocumentMeta({
+    title: 'About — ClarksvilleTN.AI',
+    description:
+      'Clarksville on the Cloud is a veteran-founded civic technology initiative by Altivum Inc. to make Clarksville AI-ready by 2030.',
+    canonical: canonicalUrl('/about'),
+  });
+
   return (
     <>
       {/* Hero */}

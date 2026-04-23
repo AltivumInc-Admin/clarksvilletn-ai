@@ -1,8 +1,17 @@
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
+import { canonicalUrl } from '../lib/seo';
 
 export default function Legal() {
+  useDocumentMeta({
+    title: 'Legal Notice — ClarksvilleTN.AI',
+    description:
+      'Legal notice, disclaimers, and privacy policy for ClarksvilleTN.AI, operated by Altivum Inc.',
+    canonical: canonicalUrl('/legal'),
+  });
+
   return (
     <section className="pt-28 md:pt-36 pb-16 bg-gradient-to-b from-river-blue-50 to-cloud-white">
       <div className="container mx-auto px-4 md:px-6">

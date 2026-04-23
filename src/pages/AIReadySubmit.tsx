@@ -8,6 +8,8 @@ import { ApiError, getMyProfile, putMyProfile } from '../lib/api';
 import type { Credential, Degree } from '../types';
 import Button from '../components/ui/Button';
 import { cognitoConfigured } from '../lib/amplify';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
+import { canonicalUrl } from '../lib/seo';
 
 const MAX_CREDENTIALS = 12;
 const MAX_HEADSHOT_BYTES = 2 * 1024 * 1024;
@@ -101,6 +103,14 @@ const authTheme: Theme = {
 };
 
 export default function AIReadySubmit() {
+  useDocumentMeta({
+    title: 'Add Your Profile — AI-Ready Clarksville',
+    description:
+      'Add your AI, cloud, or technology credentials to the AI-Ready Clarksville directory.',
+    canonical: canonicalUrl('/ai-ready/submit'),
+    noIndex: true,
+  });
+
   if (!cognitoConfigured) {
     return <ConfigurationMissing />;
   }

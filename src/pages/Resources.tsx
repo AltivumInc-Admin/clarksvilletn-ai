@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { BookOpen, GraduationCap, ExternalLink, Download, Users, Heart, FileText } from 'lucide-react';
 import CTA from '../components/sections/CTA';
+import { useDocumentMeta } from '../hooks/useDocumentMeta';
+import { canonicalUrl } from '../lib/seo';
 
 interface Resource {
   id: string;
@@ -51,6 +53,13 @@ const resources: Resource[] = [
 ];
 
 export default function Resources() {
+  useDocumentMeta({
+    title: 'Resources — ClarksvilleTN.AI',
+    description:
+      'Community resources for Clarksville AI and cloud learners: the Altivum Foundation, AWS User Group Clarksville, and career guides.',
+    canonical: canonicalUrl('/resources'),
+  });
+
   return (
     <>
       {/* Hero */}
