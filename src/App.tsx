@@ -1,11 +1,13 @@
+import { lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
-import Home from './pages/Home';
-import About from './pages/About';
-import AIReady from './pages/AIReady';
-import AIReadySubmit from './pages/AIReadySubmit';
-import Resources from './pages/Resources';
-import Legal from './pages/Legal';
+
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const AIReady = lazy(() => import('./pages/AIReady'));
+const AIReadySubmit = lazy(() => import('./pages/AIReadySubmit'));
+const Resources = lazy(() => import('./pages/Resources'));
+const Legal = lazy(() => import('./pages/Legal'));
 
 function App() {
   return (

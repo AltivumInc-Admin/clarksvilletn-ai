@@ -1,4 +1,3 @@
-import { fetchAuthSession } from 'aws-amplify/auth';
 import type { Credential, Degree, Profile, ProfileSubmission } from '../types';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? '';
@@ -13,6 +12,7 @@ export class ApiError extends Error {
 
 async function getBearerToken(): Promise<string | null> {
   try {
+    const { fetchAuthSession } = await import('aws-amplify/auth');
     const session = await fetchAuthSession();
     const token = session.tokens?.idToken?.toString();
     return token ?? null;
