@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ArrowRight, Brain, Building2, Users, Lightbulb } from 'lucide-react';
 import Button from '../ui/Button';
 
@@ -9,17 +9,17 @@ export default function Hero() {
       <div className="absolute inset-0 bg-pattern-grid opacity-10"></div>
 
       <div className="absolute inset-0 overflow-hidden">
-        <motion.div
+        <m.div
           className="absolute top-1/4 -right-32 w-[500px] h-[500px] bg-sunset-copper/8 rounded-full blur-[100px]"
           animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.6, 0.4] }}
           transition={{ duration: 10, repeat: Infinity, repeatType: 'reverse' }}
         />
-        <motion.div
+        <m.div
           className="absolute -bottom-20 -left-20 w-[400px] h-[400px] bg-river-blue-400/10 rounded-full blur-[80px]"
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
           transition={{ duration: 12, repeat: Infinity, repeatType: 'reverse' }}
         />
-        <motion.div
+        <m.div
           className="absolute top-1/3 left-1/3 w-[300px] h-[300px] bg-fort-green/5 rounded-full blur-[60px]"
           animate={{ scale: [1.1, 1, 1.1], opacity: [0.2, 0.4, 0.2] }}
           transition={{ duration: 14, repeat: Infinity, repeatType: 'reverse' }}
@@ -28,7 +28,7 @@ export default function Hero() {
 
       <div className="container mx-auto px-4 md:px-6 relative z-10 py-20 md:py-0">
         <div className="max-w-5xl mx-auto">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -62,9 +62,9 @@ export default function Hero() {
                 See AI-Ready Clarksville
               </Button>
             </div>
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -76,7 +76,7 @@ export default function Hero() {
               { icon: Brain, value: '$127M', label: 'Tech Investment', color: 'text-fort-green-300' },
               { icon: Lightbulb, value: '47%', label: 'Tech Sector Growth', color: 'text-sunset-copper-300' },
             ].map((stat, index) => (
-              <motion.div
+              <m.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -86,9 +86,9 @@ export default function Hero() {
                 <stat.icon className={`w-5 h-5 ${stat.color} mx-auto mb-2`} />
                 <div className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</div>
                 <div className="text-xs text-white/50">{stat.label}</div>
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
         </div>
       </div>
 

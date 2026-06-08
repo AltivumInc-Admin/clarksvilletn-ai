@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Brain, UserCircle2 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import type { NavLink } from '../../types';
 
 const navLinks: NavLink[] = [
@@ -68,7 +68,7 @@ export default function Header() {
                 >
                   {link.label}
                   {isActive && (
-                    <motion.div
+                    <m.div
                       className="absolute bottom-0 left-3 right-3 h-0.5 bg-sunset-copper rounded-full"
                       layoutId="activeNav"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
@@ -98,7 +98,7 @@ export default function Header() {
 
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -107,7 +107,7 @@ export default function Header() {
           >
             <div className="container mx-auto px-4 py-3">
               {navLinks.map((link, index) => (
-                <motion.div
+                <m.div
                   key={link.href}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -124,9 +124,9 @@ export default function Header() {
                   >
                     {link.label}
                   </Link>
-                </motion.div>
+                </m.div>
               ))}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: navLinks.length * 0.05 }}
@@ -138,9 +138,9 @@ export default function Header() {
                   <UserCircle2 className="w-4 h-4" />
                   Your Profile
                 </Link>
-              </motion.div>
+              </m.div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>

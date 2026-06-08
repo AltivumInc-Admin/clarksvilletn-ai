@@ -1,4 +1,4 @@
-import type { Credential, Degree, Profile, ProfileSubmission } from '../types';
+import type { Credential, Degree, Profile } from '../types';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? '';
 
@@ -58,15 +58,6 @@ async function request<T>(
 
 export async function listProfiles(): Promise<{ profiles: Profile[] }> {
   return request<{ profiles: Profile[] }>('/profiles');
-}
-
-export async function submitProfile(
-  payload: ProfileSubmission,
-): Promise<{ profileId: string; status: 'pending' }> {
-  return request('/profiles', {
-    method: 'POST',
-    body: JSON.stringify(payload),
-  });
 }
 
 export interface OwnerProfile extends Profile {

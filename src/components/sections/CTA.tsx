@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import Button from '../ui/Button';
 
@@ -28,7 +28,7 @@ export default function CTA({
       <div className="absolute inset-0 bg-pattern-dots opacity-5"></div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -53,7 +53,7 @@ export default function CTA({
               </Button>
             )}
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

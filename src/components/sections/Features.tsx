@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Building2, GraduationCap, Lightbulb, Globe } from 'lucide-react';
 
 const pillars = [
@@ -44,7 +44,7 @@ export default function Features() {
   return (
     <section className="py-16 md:py-24 bg-cloud-white relative">
       <div className="container mx-auto px-4 md:px-6">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -59,11 +59,11 @@ export default function Features() {
             A comprehensive approach to making Clarksville Tennessee's premier
             destination for AI and cloud technology.
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {pillars.map((pillar, index) => (
-            <motion.div
+            <m.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -89,7 +89,7 @@ export default function Features() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

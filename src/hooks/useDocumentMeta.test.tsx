@@ -74,6 +74,49 @@ describe('useDocumentMeta', () => {
     );
   });
 
+  it('removes og:image on unmount when there was no base og:image', () => {
+    const { unmount } = renderHook(() =>
+      useDocumentMeta({
+        title: 'T',
+        description: 'D',
+        canonical: 'https://clarksvilletn.ai/',
+        ogImage: 'https://clarksvilletn.ai/page.png',
+      }),
+    );
+    expect(getOg('og:image')?.getAttribute('content')).toBe(
+      'https://clarksvilletn.ai/page.png',
+    );
+
+    unmount();
+    expect(getOg('og:image')).toBeNull();
+  });
+
+  it('restores the base og:image when a page-level ogImage unmounts', () => {
+    // Simulate the static og:image declared in index.html
+    const base = document.createElement('meta');
+    base.setAttribute('property', 'og:image');
+    base.setAttribute('content', 'https://clarksvilletn.ai/cotc-og.png');
+    document.head.appendChild(base);
+
+    const { unmount } = renderHook(() =>
+      useDocumentMeta({
+        title: 'T',
+        description: 'D',
+        canonical: 'https://clarksvilletn.ai/about',
+        ogImage: 'https://clarksvilletn.ai/about.png',
+      }),
+    );
+    expect(getOg('og:image')?.getAttribute('content')).toBe(
+      'https://clarksvilletn.ai/about.png',
+    );
+
+    unmount();
+    expect(getOg('og:image')?.getAttribute('content')).toBe(
+      'https://clarksvilletn.ai/cotc-og.png',
+    );
+    expect(document.head.querySelectorAll('meta[property="og:image"]').length).toBe(1);
+  });
+
   it('adds noindex,nofollow robots meta when noIndex is true', () => {
     renderHook(() =>
       useDocumentMeta({

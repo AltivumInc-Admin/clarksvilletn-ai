@@ -8,7 +8,7 @@ const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 const s3 = new S3Client({});
 const ses = new SESClient({});
 
-const TOKEN_TTL_MS = 1000 * 60 * 60 * 24 * 3;
+const TOKEN_TTL_MS = 1000 * 60 * 60 * 24; // 24h, single-use moderation links
 const MAX_HEADSHOT_BYTES = 2 * 1024 * 1024;
 const MAX_BADGE_BYTES = 200 * 1024;
 const MAX_CREDENTIALS = 12;
@@ -41,7 +41,7 @@ const methodNotAllowed = () => jsonResponse(405, { message: 'Method not allowed'
 const serverError = (message = 'Internal server error') => jsonResponse(500, { message });
 
 function signAction(profileId, action, secret) {
-  const payload = { profileId, action, exp: Date.now() + TOKEN_TTL_MS };
+  const payload = { profileId, action, exp: Date.now() + TOKEN_TTL_MS, jti: randomUUID() };
   const payloadB64 = Buffer.from(JSON.stringify(payload)).toString('base64url');
   const sig = createHmac('sha256', secret).update(payloadB64).digest('base64url');
   return `${payloadB64}.${sig}`;

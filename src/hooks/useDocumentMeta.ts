@@ -65,7 +65,19 @@ export function useDocumentMeta({
     upsertMetaByProperty('og:title', title);
     upsertMetaByProperty('og:description', description);
     upsertMetaByProperty('og:url', canonical);
-    if (ogImage) upsertMetaByProperty('og:image', ogImage);
+
+    // og:image is the only optional OG tag, so unlike the others it can leak
+    // across SPA navigation. Capture whatever was there (e.g. the static default
+    // from index.html) so the cleanup can restore it instead of stranding this
+    // route's image on the next page.
+    let prevOgImage: string | null = null;
+    if (ogImage) {
+      const existing = document.head.querySelector<HTMLMetaElement>(
+        'meta[property="og:image"]',
+      );
+      prevOgImage = existing?.getAttribute('content') ?? null;
+      upsertMetaByProperty('og:image', ogImage);
+    }
 
     if (noIndex) {
       let robots = document.head.querySelector<HTMLMetaElement>(
@@ -96,6 +108,13 @@ export function useDocumentMeta({
         scriptEl.parentNode.removeChild(scriptEl);
       }
       if (noIndex) removeRobots();
+      if (ogImage) {
+        if (prevOgImage !== null) {
+          upsertMetaByProperty('og:image', prevOgImage);
+        } else {
+          document.head.querySelector('meta[property="og:image"]')?.remove();
+        }
+      }
     };
   }, [title, description, canonical, ogImage, noIndex, jsonLd]);
 }

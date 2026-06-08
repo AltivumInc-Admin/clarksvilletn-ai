@@ -35,10 +35,27 @@ function verifyAction(token, secret) {
   try {
     const payload = JSON.parse(Buffer.from(payloadB64, 'base64url').toString('utf8'));
     if (typeof payload.exp !== 'number' || Date.now() > payload.exp) return null;
+    // Require a single-use nonce. Legacy tokens minted before hardening lack it
+    // and are refused (they expire on their own short TTL regardless).
+    if (typeof payload.jti !== 'string' || !payload.jti) return null;
     return payload;
   } catch {
     return null;
   }
+}
+
+function confirmPage(profileId, action, token) {
+  const actionUrl =
+    `https://${process.env.API_DOMAIN}/admin/profiles/${encodeURIComponent(profileId)}/action` +
+    `?action=${encodeURIComponent(action)}&token=${encodeURIComponent(token)}`;
+  const label = action === 'approve' ? 'Approve' : 'Reject';
+  const body = `<p>You are about to <strong>${escapeHtml(label.toLowerCase())}</strong> this profile.</p>
+<p style="font-size:12px;color:#9ca3af;">Profile ID: ${escapeHtml(profileId)}</p>
+<form method="post" action="${escapeHtml(actionUrl)}">
+  <button type="submit" style="margin-top:1rem;padding:0.65rem 1.5rem;border:0;border-radius:8px;background:#1e3a5f;color:#fff;font-size:1rem;cursor:pointer;">Confirm ${escapeHtml(label)}</button>
+</form>
+<p style="font-size:12px;color:#9ca3af;margin-top:1rem;">This link can be used once and expires soon.</p>`;
+  return htmlResponse(200, `Confirm ${label}`, body);
 }
 
 export const handler = async (event) => {
@@ -62,6 +79,14 @@ export const handler = async (event) => {
       return htmlResponse(400, 'Unknown action', '<p>Action must be approve or reject.</p>');
     }
 
+    // A GET only renders a confirmation form — it never mutates. This defeats
+    // email link scanners / prefetchers (Outlook Safe Links, Gmail, etc.) that
+    // auto-fetch URLs, which would otherwise auto-approve/reject a profile.
+    const method = event.requestContext?.http?.method;
+    if (method !== 'POST') {
+      return confirmPage(profileId, action, token);
+    }
+
     const newStatus = action === 'approve' ? 'approved' : 'rejected';
     const now = new Date().toISOString();
 
@@ -70,14 +95,18 @@ export const handler = async (event) => {
         new UpdateCommand({
           TableName: process.env.PROFILES_TABLE,
           Key: { profileId },
-          UpdateExpression: 'SET #s = :new, #ts = :ts',
-          ConditionExpression: '#s = :pending OR #s = :current',
+          UpdateExpression: 'SET #s = :new, #ts = :ts, moderationJti = :jti',
+          // Idempotent on status AND single-use on the nonce: replaying the same
+          // signed link (same jti) fails the condition -> 409.
+          ConditionExpression:
+            '(#s = :pending OR #s = :current) AND (attribute_not_exists(moderationJti) OR moderationJti <> :jti)',
           ExpressionAttributeNames: { '#s': 'status', '#ts': action === 'approve' ? 'approvedAt' : 'rejectedAt' },
           ExpressionAttributeValues: {
             ':new': newStatus,
             ':ts': now,
             ':pending': 'pending',
             ':current': newStatus,
+            ':jti': payload.jti,
           },
         }),
       );

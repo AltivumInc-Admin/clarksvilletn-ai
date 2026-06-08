@@ -31,13 +31,15 @@ tsc -b
 ## Architecture & Code Structure
 
 ### Tech Stack
-- **Framework**: React 18 with TypeScript
+- **Framework**: React 19 with TypeScript
 - **Build Tool**: Vite
 - **Styling**: Tailwind CSS with custom design tokens
-- **Routing**: React Router v6 (BrowserRouter)
-- **Animations**: Framer Motion
+- **Routing**: React Router v7 (BrowserRouter)
+- **Animations**: Framer Motion via LazyMotion (use the `m` component, not `motion`; the app is wrapped in `<LazyMotion features={domMax} strict>` in `src/main.tsx`)
+- **Auth**: AWS Amplify (Cognito) — configured lazily in `src/lib/amplify.ts`
 - **Icons**: Lucide React
 - **Utilities**: clsx + tailwind-merge for className management
+- **Backend**: AWS SAM in `infra/` (HTTP API + Lambda + DynamoDB + S3 + SES)
 
 ### Key Architectural Patterns
 
@@ -85,7 +87,7 @@ The project is configured for AWS Amplify deployment:
 
 ### Data Management
 
-Static data is stored in `src/data/` as TypeScript modules. The `companies.ts` file contains showcase company information with optional case study details.
+Static data is stored in `src/data/` as TypeScript modules (e.g. `timeline.ts`). Dynamic directory data (approved professional profiles) is fetched from the backend API via `src/lib/api.ts`.
 
 ## Development Patterns to Follow
 

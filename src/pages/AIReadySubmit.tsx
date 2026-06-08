@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Authenticator, ThemeProvider, type Theme } from '@aws-amplify/ui-react';
 import type { AuthUser } from 'aws-amplify/auth';
 import '@aws-amplify/ui-react/styles.css';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Check, CheckCircle, Loader2, LogOut, Plus, Trash2, Upload, X } from 'lucide-react';
 import { ApiError, getMyProfile, putMyProfile } from '../lib/api';
 import type { Credential, Degree } from '../types';
@@ -452,7 +452,7 @@ function ProfileForm({
   if (status === 'success') {
     const wasUpdate = existingStatus !== null;
     return (
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center bg-white rounded-2xl border border-river-blue/8 shadow-elevation-2 p-8 md:p-12"
@@ -472,14 +472,14 @@ function ProfileForm({
             Keep Editing
           </Button>
         </div>
-      </motion.div>
+      </m.div>
     );
   }
 
   const isEditing = existingStatus !== null;
 
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+    <m.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
       <div className="flex items-center justify-between mb-6">
         <div className="text-xs text-historic-stone">
           Signed in as <span className="font-medium text-river-blue">{cognitoEmail}</span>
@@ -900,7 +900,7 @@ function ProfileForm({
           </Button>
         </div>
       </form>
-    </motion.div>
+    </m.div>
   );
 }
 
