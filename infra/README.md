@@ -88,3 +88,26 @@ Notes:
 - **PITR** — enabled on the Profiles table.
 - **Rotating the admin secret** — redeploy with a new `AdminActionSecret`; any outstanding approve/reject email links are invalidated immediately.
 - **Removing a profile after approval** — there is no admin UI. Run an `aws dynamodb update-item` to set `status=rejected`, or delete the row outright.
+
+## Migrations
+
+### Media URL cutover (S3 → CloudFront)
+
+After deploying the CloudFront/OAC change, the bucket is private and old
+`https://<bucket>.s3.<region>.amazonaws.com/...` URLs stored on existing profiles will
+403. Rewrite them to the new CloudFront base with `scripts/migrate-media-urls.mjs`
+(dry-run by default, idempotent):
+
+```bash
+# Get the new base from the stack output:
+NEW=$(aws cloudformation describe-stacks --stack-name ai-ready-clarksville \
+  --query "Stacks[0].Outputs[?OutputKey=='MediaCdnDomain'].OutputValue" --output text)
+
+OLD_MEDIA_BASE_URL=https://ai-ready-clarksville-media.s3.us-east-1.amazonaws.com \
+NEW_MEDIA_BASE_URL="$NEW" PROFILES_TABLE=ai-ready-profiles AWS_REGION=us-east-1 \
+  node scripts/migrate-media-urls.mjs           # dry run — prints what would change
+
+# then, once the dry run looks right:
+OLD_MEDIA_BASE_URL=... NEW_MEDIA_BASE_URL="$NEW" PROFILES_TABLE=ai-ready-profiles AWS_REGION=us-east-1 \
+  node scripts/migrate-media-urls.mjs --apply   # writes the changes
+```
