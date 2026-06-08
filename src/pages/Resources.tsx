@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { BookOpen, GraduationCap, ExternalLink, Download, Users, Heart, FileText } from 'lucide-react';
 import CTA from '../components/sections/CTA';
 import { useDocumentMeta } from '../hooks/useDocumentMeta';
@@ -65,7 +65,7 @@ export default function Resources() {
       {/* Hero */}
       <section className="pt-28 md:pt-36 pb-16 md:pb-20 bg-gradient-to-b from-river-blue-50 to-cloud-white">
         <div className="container mx-auto px-4 md:px-6">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -82,7 +82,7 @@ export default function Resources() {
               Community resources built here in Clarksville — from a nonprofit foundation to an official
               AWS User Group to practical career guides.
             </p>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -94,7 +94,7 @@ export default function Resources() {
               const ResourceIcon = resource.icon;
               const ActionIcon = resource.actionIcon;
               return (
-                <motion.a
+                <m.a
                   key={resource.id}
                   href={resource.href}
                   target={resource.external ? '_blank' : undefined}
@@ -117,12 +117,12 @@ export default function Resources() {
                     {resource.actionLabel}
                     <ActionIcon className="w-4 h-4" />
                   </div>
-                </motion.a>
+                </m.a>
               );
             })}
           </div>
 
-          <motion.p
+          <m.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
@@ -134,7 +134,7 @@ export default function Resources() {
               Let us know
             </a>
             .
-          </motion.p>
+          </m.p>
         </div>
       </section>
 

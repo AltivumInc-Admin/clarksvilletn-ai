@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Hero from '../components/sections/Hero';
 import Features from '../components/sections/Features';
 import CTA from '../components/sections/CTA';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ArrowRight, CheckCircle, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { partners } from '../data/timeline';
@@ -48,7 +48,7 @@ export default function Home() {
 
       <section className="py-16 md:py-24 bg-white relative">
         <div className="container mx-auto px-4 md:px-6">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -71,7 +71,7 @@ export default function Home() {
               {profileCount !== null && profileCount > 3 ? `View all ${profileCount} profiles` : 'View directory'}
               <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
             </Link>
-          </motion.div>
+          </m.div>
 
           {featuredProfiles.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -80,7 +80,7 @@ export default function Home() {
               ))}
             </div>
           ) : (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -99,7 +99,7 @@ export default function Home() {
                 Add Your Profile
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
-            </motion.div>
+            </m.div>
           )}
         </div>
       </section>
@@ -107,7 +107,7 @@ export default function Home() {
       <section className="py-16 md:py-24 bg-white relative">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-5xl mx-auto">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -122,7 +122,7 @@ export default function Home() {
                 Tennessee's 5th largest city has the talent, location, and momentum to become
                 a national leader in AI adoption.
               </p>
-            </motion.div>
+            </m.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
               {[
@@ -133,7 +133,7 @@ export default function Home() {
                 'Growing population of 180,000+ with pro-business local government',
                 'Established manufacturing base ready for Industry 4.0 transformation',
               ].map((point, index) => (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, x: index % 2 === 0 ? -10 : 10 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -143,11 +143,11 @@ export default function Home() {
                 >
                   <CheckCircle className="w-5 h-5 text-fort-green flex-shrink-0 mt-0.5" />
                   <p className="text-historic-stone">{point}</p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
@@ -158,14 +158,14 @@ export default function Home() {
                 Learn About Our Initiative
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </section>
 
       <section className="py-12 md:py-16 bg-tech-silver/20 border-y border-river-blue/5">
         <div className="container mx-auto px-4 md:px-6">
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
@@ -177,7 +177,7 @@ export default function Home() {
             </p>
             <div className="flex flex-wrap justify-center gap-x-10 gap-y-4 max-w-4xl mx-auto">
               {partners.map((partner, index) => (
-                <motion.span
+                <m.span
                   key={index}
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
@@ -186,10 +186,10 @@ export default function Home() {
                   className="text-sm text-historic-stone/70 font-medium whitespace-nowrap"
                 >
                   {partner.name}
-                </motion.span>
+                </m.span>
               ))}
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 

@@ -12,12 +12,14 @@ A sophisticated website showcasing Clarksville, Tennessee's transformation into 
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React 18 with TypeScript
+- **Frontend**: React 19 with TypeScript
 - **Styling**: Tailwind CSS with custom design system
-- **Animations**: Framer Motion
-- **Routing**: React Router v6
+- **Animations**: Framer Motion (LazyMotion)
+- **Routing**: React Router v7
+- **Auth**: AWS Amplify (Cognito)
 - **Build Tool**: Vite
 - **Icons**: Lucide React
+- **Backend**: AWS SAM (API Gateway HTTP API, Lambda, DynamoDB, S3, SES) — see `infra/`
 
 ## 🎨 Design System
 
@@ -105,12 +107,14 @@ src/
 ├── components/
 │   ├── layout/      # Header, Footer, Layout wrapper
 │   ├── sections/    # Page sections (Hero, Features, CTA)
-│   ├── ui/          # Reusable UI components
-│   └── showcase/    # Showcase-specific components
+│   ├── cards/       # ProfileCard
+│   └── ui/          # Reusable UI components (Button)
 ├── pages/           # Route pages
-├── data/            # Static data (companies, etc.)
+├── hooks/           # useDocumentMeta (per-route SEO)
+├── lib/             # amplify, api client, seo (JSON-LD)
+├── data/            # Static data (timeline.ts)
 ├── types/           # TypeScript interfaces
-├── utils/           # Utility functions
+├── utils/           # Utility functions (cn)
 └── App.tsx          # Main app component
 ```
 
@@ -120,15 +124,17 @@ src/
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
+- `npm test` - Run the Vitest suite
+- `npm run test:coverage` - Run tests with coverage
 
 ## 🌟 Key Pages
 
-1. **Home** - Hero section with campaign introduction
-2. **Campaign** - "Clarksville on the Cloud" details
-3. **Showcase** - Success stories from local businesses
-4. **Services** - Cloud migration and AI integration offerings
-5. **About** - Vision for Tennessee's first AI store
-6. **Contact** - Get in touch for consultations
+1. **Home** (`/`) - Hero and initiative overview
+2. **About** (`/about`) - Vision and background
+3. **AI-Ready** (`/ai-ready`) - Public directory of approved professional profiles
+4. **Add Your Profile** (`/ai-ready/submit`) - Authenticated profile submission (Cognito)
+5. **Resources** (`/resources`) - Guides and links
+6. **Legal** (`/legal`) - Legal and privacy information
 
 ## 🤝 Contributing
 

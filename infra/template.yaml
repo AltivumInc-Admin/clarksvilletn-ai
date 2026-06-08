@@ -42,7 +42,7 @@ Globals:
       Variables:
         PROFILES_TABLE: !Ref ProfilesTable
         MEDIA_BUCKET: !Ref MediaBucket
-        MEDIA_BASE_URL: !Sub 'https://${MediaBucket.RegionalDomainName}'
+        MEDIA_BASE_URL: !Sub 'https://${MediaDistribution.DomainName}'
         ADMIN_EMAIL: !Ref AdminEmail
         ADMIN_ACTION_SECRET: !Ref AdminActionSecret
         TURNSTILE_SECRET: !Ref TurnstileSecretKey
@@ -140,22 +140,48 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Ref MediaBucketName
+      # Fully private: the bucket is never reachable directly. Media is served
+      # exclusively through CloudFront via Origin Access Control (OAC).
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         IgnorePublicAcls: true
-        BlockPublicPolicy: false
-        RestrictPublicBuckets: false
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerEnforced
-      CorsConfiguration:
-        CorsRules:
-          - AllowedOrigins:
-              - !Ref SiteOrigin
-              - !Ref SiteOriginWww
-            AllowedMethods: [GET]
-            AllowedHeaders: ['*']
-            MaxAge: 3600
+
+  MediaOriginAccessControl:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: !Sub '${MediaBucketName}-oac'
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
+  MediaDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        Comment: AI-Ready Clarksville media (headshots/badges)
+        HttpVersion: http2and3
+        PriceClass: PriceClass_100
+        Origins:
+          - Id: media-s3
+            DomainName: !GetAtt MediaBucket.RegionalDomainName
+            OriginAccessControlId: !Ref MediaOriginAccessControl
+            S3OriginConfig:
+              OriginAccessIdentity: ''
+        DefaultCacheBehavior:
+          TargetOriginId: media-s3
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods: [GET, HEAD]
+          CachedMethods: [GET, HEAD]
+          Compress: true
+          # Managed-CachingOptimized policy.
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
 
   MediaBucketPolicy:
     Type: AWS::S3::BucketPolicy
@@ -163,11 +189,15 @@ Resources:
       Bucket: !Ref MediaBucket
       PolicyDocument:
         Statement:
-          - Sid: PublicReadHeadshotsAndBadges
+          - Sid: AllowCloudFrontServicePrincipalReadOnly
             Effect: Allow
-            Principal: '*'
+            Principal:
+              Service: cloudfront.amazonaws.com
             Action: s3:GetObject
             Resource: !Sub '${MediaBucket.Arn}/*'
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub 'arn:aws:cloudfront::${AWS::AccountId}:distribution/${MediaDistribution}'
 
   HttpApi:
     Type: AWS::Serverless::HttpApi
@@ -208,7 +238,7 @@ Resources:
         - Statement:
             - Effect: Allow
               Action: ses:SendEmail
-              Resource: '*'
+              Resource: !Sub 'arn:aws:ses:${AWS::Region}:${AWS::AccountId}:identity/${AdminEmail}'
       Events:
         Submit:
           Type: HttpApi
@@ -242,12 +272,20 @@ Resources:
         - DynamoDBCrudPolicy:
             TableName: !Ref ProfilesTable
       Events:
-        Action:
+        # GET renders a confirmation page (safe for email link scanners/prefetch).
+        ActionConfirmPage:
           Type: HttpApi
           Properties:
             ApiId: !Ref HttpApi
             Path: /admin/profiles/{profileId}/action
             Method: GET
+        # POST performs the actual approve/reject (single-use signed link).
+        Action:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /admin/profiles/{profileId}/action
+            Method: POST
 
   MeProfileFunction:
     Type: AWS::Serverless::Function
@@ -262,7 +300,7 @@ Resources:
         - Statement:
             - Effect: Allow
               Action: ses:SendEmail
-              Resource: '*'
+              Resource: !Sub 'arn:aws:ses:${AWS::Region}:${AWS::AccountId}:identity/${AdminEmail}'
       Events:
         GetMe:
           Type: HttpApi
@@ -293,6 +331,9 @@ Outputs:
     Value: !Sub 'aws apigatewayv2 get-domain-name --domain-name ${ApiDomainName}'
   MediaBucketName:
     Value: !Ref MediaBucket
+  MediaCdnDomain:
+    Description: CloudFront domain that privately serves headshots/badges (matches MEDIA_BASE_URL).
+    Value: !Sub 'https://${MediaDistribution.DomainName}'
   ProfilesTableName:
     Value: !Ref ProfilesTable
   UserPoolId:

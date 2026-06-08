@@ -5,12 +5,13 @@ Serverless API that powers the AI-Ready Clarksville directory.
 ## Stack
 
 - API Gateway HTTP API (custom domain: `api.clarksvilletn.ai`)
-- Three Lambda functions (Node 20, arm64)
+- Four Lambda functions (Node 20, arm64)
   - `submit-profile` — `POST /profiles` (Turnstile-gated, S3 upload, DDB write, SES review email)
   - `list-profiles` — `GET /profiles` (approved profiles, newest first)
-  - `admin-action` — `GET /admin/profiles/{profileId}/action` (HMAC-signed approve/reject links)
-- DynamoDB `Profiles` table with GSI `status-createdAt-index`
-- S3 media bucket for headshots (public-read)
+  - `me-profile` — `GET`/`PUT /me/profile` (Cognito-authenticated; owner reads/updates their own profile)
+  - `admin-action` — `GET`/`POST /admin/profiles/{profileId}/action` (HMAC-signed; GET renders a confirm page, POST performs the approve/reject)
+- DynamoDB `ai-ready-profiles` table with GSIs `status-createdAt-index` and `userSub-index` (PITR enabled)
+- S3 media bucket for headshots/badges, served privately via CloudFront (OAC)
 - SES email to `admin@altivum.ai` for new submissions
 
 ## Prerequisites (one-time, out of band)
@@ -71,11 +72,14 @@ Trigger a rebuild in Amplify for the variables to take effect.
 
 1. Visitor completes Turnstile, submits `POST /profiles`.
 2. Lambda uploads headshot to S3, writes `status=pending` row to DDB, sends SES email.
-3. Email contains two signed URLs (3-day TTL): approve and reject.
-4. Clicking either hits `admin-action`, which verifies the HMAC + exp, updates the row, and returns a styled HTML confirmation page.
-5. The approved profile appears on the public `GET /profiles` response (cached 60s by browser).
+3. Email contains two signed URLs (24h TTL, each carrying a single-use `jti` nonce): approve and reject.
+4. Clicking a link issues a `GET`, which only **renders a confirmation page** with a "Confirm" button — it does not mutate. This makes the links safe against email security scanners / link prefetchers (Outlook Safe Links, Gmail, Mimecast) that auto-fetch URLs.
+5. Pressing "Confirm" issues a `POST`, which re-verifies the HMAC + expiry + nonce and updates the row. Each signed link is single-use: replaying the same link returns `409 Already actioned`.
+6. The approved profile appears on the public `GET /profiles` response (cached 60s by browser).
 
-Links are idempotent — clicking approve twice still renders "Approved"; the conditional write only transitions from `pending` or from the same target state.
+Notes:
+- Turnstile **fails closed** — if `TURNSTILE_SECRET` is not configured, submissions are rejected rather than silently allowed.
+- Media (headshots/badges) is served via CloudFront with Origin Access Control; the S3 bucket itself is fully private (all public access blocked).
 
 ## Operational notes
 

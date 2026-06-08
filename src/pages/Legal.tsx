@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useDocumentMeta } from '../hooks/useDocumentMeta';
@@ -15,7 +15,7 @@ export default function Legal() {
   return (
     <section className="pt-28 md:pt-36 pb-16 bg-gradient-to-b from-river-blue-50 to-cloud-white">
       <div className="container mx-auto px-4 md:px-6">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -146,7 +146,7 @@ export default function Legal() {
               </p>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );
