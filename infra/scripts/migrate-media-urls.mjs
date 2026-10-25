@@ -13,11 +13,19 @@
  *   OLD_MEDIA_BASE_URL=https://ai-ready-clarksville-media.s3.us-east-1.amazonaws.com \
  *   NEW_MEDIA_BASE_URL=https://<dist>.cloudfront.net \
  *   PROFILES_TABLE=ai-ready-profiles AWS_REGION=us-east-1 \
+ *   CLARKSVILLE_AWS_PROFILE=altivum-og \
  *   node infra/scripts/migrate-media-urls.mjs           # dry run
  *   node infra/scripts/migrate-media-urls.mjs --apply   # write changes
  *
+ * The expected account (the Altivum account) is not written anywhere in this repo.
+ * Give its 12-digit id as CLARKSVILLE_AWS_ACCOUNT, or once per machine on one line in
+ * the gitignored file .aws-account at the repo root. With neither, the script refuses.
+ *
  * Tip: read NEW_MEDIA_BASE_URL from the stack's MediaCdnDomain output.
  */
+import { execFileSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, ScanCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
 
@@ -51,6 +59,39 @@ export function rewriteItem(item, oldBase, newBase) {
   };
 }
 
+// The account the profile must reach: CLARKSVILLE_AWS_ACCOUNT first, else the
+// gitignored .aws-account at the repo root (one line, the 12-digit id). Anything else
+// is a refusal, so a missing or malformed setting fails closed before any AWS call.
+function readExpectedAccount() {
+  const howTo =
+    'Set CLARKSVILLE_AWS_ACCOUNT to the Altivum account id, or put that 12-digit id on one ' +
+    'line in .aws-account at the repo root (gitignored, never commit it).';
+  const fromEnv = process.env.CLARKSVILLE_AWS_ACCOUNT;
+  if (fromEnv !== undefined && fromEnv !== '') {
+    const id = fromEnv.trim();
+    if (!/^\d{12}$/.test(id)) {
+      return { ok: false, reason: `CLARKSVILLE_AWS_ACCOUNT is not a 12-digit account id. ${howTo}` };
+    }
+    return { ok: true, account: id, source: 'CLARKSVILLE_AWS_ACCOUNT' };
+  }
+  const file = fileURLToPath(new URL('../../.aws-account', import.meta.url));
+  let text;
+  try {
+    text = readFileSync(file, 'utf8');
+  } catch (err) {
+    const reason =
+      err && err.code === 'ENOENT'
+        ? 'no expected AWS account: CLARKSVILLE_AWS_ACCOUNT is unset and there is no .aws-account file.'
+        : `could not read ${file}.`;
+    return { ok: false, reason: `${reason} ${howTo}` };
+  }
+  const id = text.trim();
+  if (!/^\d{12}$/.test(id)) {
+    return { ok: false, reason: `${file} does not hold a single 12-digit account id. ${howTo}` };
+  }
+  return { ok: true, account: id, source: '.aws-account' };
+}
+
 async function main() {
   const TABLE = process.env.PROFILES_TABLE || 'ai-ready-profiles';
   const oldBase = process.env.OLD_MEDIA_BASE_URL;
@@ -62,7 +103,38 @@ async function main() {
     process.exit(1);
   }
 
-  const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
+  // WHICH ACCOUNT. The Profiles table lives in the Altivum account, reached through
+  // the altivum-og profile. Never the shell's AWS_PROFILE, which names whatever account
+  // the shell carries: the profile is named here (CLARKSVILLE_AWS_PROFILE overrides it)
+  // and its account is proven first. The account check does not move with the override:
+  // the expected id comes only from CLARKSVILLE_AWS_ACCOUNT or .aws-account (this is a
+  // public repo, so the id itself is never written here).
+  const profile = process.env.CLARKSVILLE_AWS_PROFILE || 'altivum-og';
+  const expected = readExpectedAccount();
+  if (!expected.ok) {
+    console.error(`REFUSING: ${expected.reason} Nothing was changed.`);
+    process.exit(1);
+  }
+  let account = '';
+  try {
+    account = execFileSync(
+      'aws',
+      ['sts', 'get-caller-identity', '--profile', profile, '--query', 'Account', '--output', 'text'],
+      { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] },
+    ).trim();
+  } catch {
+    console.error(`REFUSING: profile '${profile}' produced no usable credentials. Nothing was changed.`);
+    process.exit(1);
+  }
+  if (account !== expected.account) {
+    console.error(
+      `REFUSING: profile '${profile}' answers for a different account than the one ${expected.source} ` +
+        'names (the Altivum account). Nothing was changed.',
+    );
+    process.exit(1);
+  }
+
+  const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({ profile }));
   let scanned = 0;
   let changed = 0;
   let ExclusiveStartKey;

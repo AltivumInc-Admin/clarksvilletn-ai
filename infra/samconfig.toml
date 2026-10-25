@@ -1,0 +1,29 @@
+# SAM CLI configuration for the ai-ready-clarksville stack.
+#
+# WHICH ACCOUNT. This stack lives in the Altivum account, reached through the
+# altivum-og profile, in us-east-1 (confirmed 2026-10-25). `profile` below pins
+# `sam deploy` (guided or not), `sam sync` and `sam delete` to that account, so
+# none of them follows the shell's AWS_PROFILE into whatever account that names.
+# A profile named here beats the shell's AWS_PROFILE: SAM hands it to boto3 as
+# profile_name. A `--profile <name>` on the command line still overrides this
+# file, so never pass one that reaches a different account.
+#
+# Never commit secrets here. Give TurnstileSecretKey and AdminActionSecret at the
+# guided prompt (NoEcho values are not saved to this file), never through
+# --parameter-overrides on a run that saves this file.
+version = 0.1
+
+[default.deploy.parameters]
+profile = "altivum-og"
+stack_name = "ai-ready-clarksville"
+region = "us-east-1"
+
+[default.sync.parameters]
+profile = "altivum-og"
+stack_name = "ai-ready-clarksville"
+region = "us-east-1"
+
+[default.delete.parameters]
+profile = "altivum-og"
+stack_name = "ai-ready-clarksville"
+region = "us-east-1"
