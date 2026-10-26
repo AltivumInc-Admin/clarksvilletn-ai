@@ -24,3 +24,6 @@ coverage
 *.sln
 *.sw?
 infra/.aws-sam/
+
+# Local expected AWS account id for infra/scripts (one line). Never commit it.
+.aws-account

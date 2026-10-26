@@ -43,12 +43,17 @@ Before `sam deploy` will succeed, the operator needs to provision:
 
 ## Deploy
 
+Which account: the Altivum account, through the `altivum-og` profile, in `us-east-1`.
+`infra/samconfig.toml` names that profile, so a bare `sam deploy` never follows your
+shell's `AWS_PROFILE`. The commands below name it too, in case a guided run rewrites
+`samconfig.toml`.
+
 ```bash
 cd infra
 sam build
-sam deploy --guided   # first time only
+sam deploy --guided --profile altivum-og   # first time only
 # subsequent deploys:
-sam deploy
+sam deploy --profile altivum-og
 ```
 
 Capture outputs:
@@ -96,7 +101,20 @@ Notes:
 After deploying the CloudFront/OAC change, the bucket is private and old
 `https://<bucket>.s3.<region>.amazonaws.com/...` URLs stored on existing profiles will
 403. Rewrite them to the new CloudFront base with `scripts/migrate-media-urls.mjs`
-(dry-run by default, idempotent):
+(dry-run by default, idempotent). It uses the `altivum-og` profile (override with
+`CLARKSVILLE_AWS_PROFILE`), never the shell's `AWS_PROFILE`, and refuses unless that
+profile reaches the Altivum account that holds the table.
+
+This is a public repo, so the Altivum account id is not written in it. The script reads
+the expected id from `CLARKSVILLE_AWS_ACCOUNT`, or else from a gitignored `.aws-account`
+file at the repo root (one line, the 12-digit id), and refuses when neither is set. Set
+it once per machine, from the repo root, with the Altivum account's id (not whatever a
+profile happens to answer):
+
+```bash
+printf '%s\n' '<Altivum account id>' > .aws-account
+git check-ignore -v .aws-account   # must print the .gitignore rule; never commit it
+```
 
 ```bash
 # Get the new base from the stack output:
